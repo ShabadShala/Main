@@ -374,7 +374,7 @@ async function searchName() {
 			closePopup();
 			enableAnimation();
 			await addNameToSheet(name);
-			showMessage('✅ ਨਾਮ ਜੁੜ ਗਿਆ');
+			showMessage('✅ ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ');
 			enableInput();
 		};
 
@@ -433,7 +433,7 @@ async function searchName() {
 			const result = await response.json();
 
 			if (result.status === 'added') {
-				messageDiv.textContent = 'ਨਾਮ ਜੋੜ ਦਿੱਤਾ ਗਿਆ';
+				messageDiv.textContent = 'ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ';
 			} else {
 				messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
 			}
@@ -523,8 +523,8 @@ async function searchName() {
 	
 	    <div id="addDialog">
 			<p>ਇਹ ਨਾਮ ਮੌਜੂਦ ਨਹੀਂ,</p>
-			<p>ਕੀ ਤੁਸੀਂ ਜੋੜਨਾ ਚਾਹੁੰਦੇ ਹੋ?</p>
-			<button class="add-btn">ਜੋੜੋ</button>
+			<p>ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</p>
+			<button class="add-btn">ਕਰ ਦੇਵੋ</button>
 			<button class="cancel-btn">ਰੱਦ ਕਰੋ</button>
 		</div>
     <div id="overlay"></div>
