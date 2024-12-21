@@ -262,9 +262,67 @@
 			opacity: 0.5; /* Optional: dim the button to show it's disabled */
 		}
 
+   /* General styles for the animation container */
+		#baby-animation {
+			position: relative; /* Position relative to its parent container */
+		
+			left: 50%; /* Adjust as needed */
+			font-size: 50px;
+			z-index: 1000;
+			transform: none; /* No translation, place as per normal flow */
+			  margin-top: 40px;
+		}
+
+        /* Animation styles */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translate(-50%, 0);
+            }
+            50% {
+                transform: translate(-50%, -20px);
+            }
+        }
+
+        .animation {
+            animation: bounce 1s infinite;
+        }
+
+        /* Hidden state */
+        .hidden {
+            display: none;
+        }
     </style>
 
     <script>
+	        // Get the animation element
+      
+
+        // Function to activate animation
+        function activateAnimation() {
+		  const babyAnimation = document.getElementById('baby-animation');
+            babyAnimation.classList.remove('hidden');
+            babyAnimation.classList.add('animation');
+        }
+
+        // Function to deactivate animation
+        function deactivateAnimation() {
+		  const babyAnimation = document.getElementById('baby-animation');
+            babyAnimation.classList.remove('animation');
+            babyAnimation.classList.add('hidden');
+        }
+
+        // Trigger animation based on scroll position
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+
+            // Activate animation at 300px scroll, deactivate after 600px
+            if (scrollY > 300 && scrollY < 600) {
+                activateAnimation();
+            } else {
+                deactivateAnimation();
+            }
+        });
+	
 	document.addEventListener("DOMContentLoaded", function() {
     const input = document.querySelector('input[type="text"]');
     const searchBtn = document.querySelector('.display-btn');
@@ -347,9 +405,11 @@ async function searchName() {
         // Enable input after search completes
         enableInput();
 
+
         // Handle the result based on the search status
         if (result.status === 'found') {
             messageDiv.textContent = '✅ ਨਾਮ ਮੌਜੂਦ ਹੈ';
+			activateAnimation()
             messageDiv.classList.add('found');
         } else if (result.status === 'not_found') {
             showAddDialog(name);
@@ -375,6 +435,7 @@ async function searchName() {
 			enableAnimation();
 			await addNameToSheet(name);
 			showMessage('✅ ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ');
+			
 			enableInput();
 		};
 
@@ -433,7 +494,9 @@ async function searchName() {
 			const result = await response.json();
 
 			if (result.status === 'added') {
+activateAnimation()
 				messageDiv.textContent = 'ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ';
+		
 			} else {
 				messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
 			}
@@ -466,6 +529,7 @@ async function searchName() {
 		document.getElementById('message').textContent = ''; // Clear the message
 		input.focus();
 		disableInput(false)
+		deactivateAnimation()
 	}
     </script>
 	
@@ -510,10 +574,15 @@ async function searchName() {
 
     <div class="search-container">
         <div class="input-wrapper">
-            <input type="text" onkeypress="allowGurmukhi(event)" oninput="toggleClearButton(this)" onkeydown="if(event.key === 'Enter') searchName()" placeholder="ਨਾਮ ਲਿਖੋ">
+            <input type="text" 
+       onkeypress="allowGurmukhi(event)" 
+       oninput="toggleClearButton(this); deactivateAnimation();" 
+       onkeydown="if(event.key === 'Enter') searchName()" 
+       placeholder="ਨਾਮ ਲਿਖੋ">
+
             <button class="clear-btn" onclick="clearInput(this.previousElementSibling)">&times;</button>
         </div>
-        <button class="display-btn" onclick="searchName()">Check</button>
+        <button class="display-btn" onclick="searchName() ; deactivateAnimation()">Check</button>
     </div>
 
 	<div class="loading" id="loading"></div>
@@ -528,6 +597,10 @@ async function searchName() {
 			<button class="cancel-btn">ਰੱਦ ਕਰੋ</button>
 		</div>
     <div id="overlay"></div>
+	
+    <div id="baby-animation" class="animation hidden">
+        👶🍼👼
+    </div>
 	
     <div class="line"></div>
     <a href="https://t.me/Shabadshala" target="_blank">ਸ਼ਬਦਸ਼ਾਲਾ</a>
