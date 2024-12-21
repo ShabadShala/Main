@@ -116,7 +116,21 @@
 			border-radius: 5px;
 		}
 
-		#popupOverlay {
+#aboutButton {
+			position: fixed;
+			top: 10px;
+			left: 10px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			padding: 10px 20px;
+			font-size: 16px;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+
+		#popupOverlay, #aboutpopupOverlay {
 			display: none;
 			position: fixed;
 			top: 0;
@@ -128,7 +142,7 @@
 		}
 
 		/* Style for the Popup content */
-		#popupOverlay > div {
+		#popupOverlay > div, #aboutpopupOverlay > div {
 			position: absolute;
 			top: 50%;
 			left: 50%;
@@ -163,7 +177,7 @@
 		}
 
 		/* Style for the OK button inside the popup */
-		#closePopup {
+		#closePopup, #aboutclosePopup {
 			display: block; /* Make the button a block element */
 			margin: 20px auto; /* Center the button horizontally and add spacing */
 			background-color: #f44336;
@@ -386,6 +400,14 @@ async function searchName() {
 		addDialog.style.display = 'none';
 		overlay.style.display = 'none';
 	}
+	
+		function aboutclosePopup() {
+		const addDialog = document.getElementById('addDialog');
+		const overlay = document.getElementById('overlay');
+
+		addDialog.style.display = 'none';
+		overlay.style.display = 'none';
+	}
 
 	function enableAnimation() {
 		const loadingSpinner = document.getElementById('loading');
@@ -450,6 +472,24 @@ async function searchName() {
 </head>
 
 <body>
+
+	<!-- About Button -->
+	<button id="aboutButton">About</button>
+	<!-- Popup Overlay -->
+	<div id="aboutpopupOverlay">
+		<div class="popup-container">
+			<strong>ਸ਼ਬਦਸ਼ਾਲਾ ਦੇ ਤਹਿਤ</strong>
+			<ul class="instructions-list"><br>
+				<li>ਪੰਜਾਬੀ ਸ਼ਬਦਕੋਸ਼ਾਂ ਨੂੰ ਡਿਜੀਟਾਈਜ਼ ਕਰਨਾ</li>
+				<li>ਨਵੇਂ ਸ਼ਬਦ ਇਕੱਠੇ ਕਰਨੇ ਤੇ ਘੜਨੇ</li>
+				<li>ਨਵੇਂ ਸ਼ਬਦਕੋਸ਼ ਬਣਾਉਣੇ, ਆਨਲਾਈਨ ਕਰਨੇ</li>
+				<li>ਆਨਲਾਈਨ ਪੰਜਾਬੀ ਲੋੜਾਂ ਦੀ ਪੂਰਤੀ</li>
+				<li>ਸਿੱਖਿਆ ਸਮਗਰੀ, ਕਿਤਾਬਾਂ ਵਗੈਰਾ</li>
+			</ul>
+			<button id="aboutclosePopup">OK</button>
+		</div>
+	</div>
+
 	<!-- Help Button -->
 	<button id="helpButton">Help</button>
 	<!-- Popup Overlay -->
@@ -506,6 +546,21 @@ async function searchName() {
 		// Close the popup when the close button is clicked
 		closePopupButton.addEventListener('click', function() {
 			popupOverlay.style.display = 'none';
+		});
+		
+				// Get references to the button and popup elements
+		const aboutButton = document.getElementById('aboutButton');
+		const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
+		const aboutclosePopupButton = document.getElementById('aboutclosePopup');
+
+		// Show the popup when the help button is clicked
+		aboutButton.addEventListener('click', function() {
+			aboutpopupOverlay.style.display = 'block';
+		});
+
+		// Close the popup when the close button is clicked
+		aboutclosePopupButton.addEventListener('click', function() {
+			aboutpopupOverlay.style.display = 'none';
 		});
 	</script>
 </body>
