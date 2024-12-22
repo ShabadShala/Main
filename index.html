@@ -299,8 +299,18 @@
     </style>
 
     <script>
-	        // Get the animation element
-      
+document.addEventListener("DOMContentLoaded", function() {
+    const input = document.querySelector('input[type="text"]');
+
+    // Add event listener to validate Gurmukhi characters
+    input.addEventListener('input', function() {
+        const gurmukhiRegex = /^[\u0A00-\u0A7F]*$/; // Gurmukhi Unicode range
+        if (!gurmukhiRegex.test(input.value)) {
+            input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove non-Gurmukhi characters
+        }
+    });
+});
+     
 
         // Function to activate animation
         function activateAnimation() {
