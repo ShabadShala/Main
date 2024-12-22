@@ -119,6 +119,9 @@
             font-size: 1.2em;
             color: #ff0000; /* Default red */
             margin-top: 10px;
+white-space: nowrap; /* Prevent text from wrapping onto multiple lines */
+    text-align: center;
+
         }
 
         .message.found {
@@ -499,12 +502,11 @@ async function searchName() {
 		const overlay = document.getElementById('overlay');
 
 		addDialog.querySelector('.add-btn').onclick = async function () {
-		disableInput();
+			disableInput();
 			closePopup();
 			enableAnimation();
 			await addNameToSheet(name);
-			showMessage('✅ ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ');
-			
+			showMessage('✅ ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ');			
 			enableInput();
 		};
 
