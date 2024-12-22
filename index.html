@@ -12,6 +12,7 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
+			margin: 0; /* Avoid margins */
         }
 
         h1 {
@@ -38,12 +39,13 @@
             justify-content: center;
             align-items: center;
             margin-top: 20px;
-    margin-bottom: 40px !important;
+			margin-bottom: 40px !important;
         }
 
         .input-wrapper {
             position: relative;
             display: inline-block;
+			max-width: 100%;
         }
 
         input[type="text"] {
@@ -82,6 +84,7 @@
             border: none;
             height: 40px; /* Align with input height */
             margin-left: 10px;
+			  max-width: 100%; 
         }
 
         .display-btn:hover {
@@ -448,10 +451,10 @@ async function searchName() {
         // Enable input after search completes
         enableInput();
 
-
         // Handle the result based on the search status
         if (result.status === 'found') {
             messageDiv.textContent = '✅ ਨਾਮ ਮੌਜੂਦ ਹੈ';
+			 messageDiv.style.fontSize = '20px';
 			activateAnimation()
             messageDiv.classList.add('found');
         } else if (result.status === 'not_found') {
