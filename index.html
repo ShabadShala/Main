@@ -553,6 +553,7 @@ activateAnimation()
 		const clearBtn = input.nextElementSibling;
 		clearBtn.style.display = input.value ? 'block' : 'none';
 		if (input.value) {
+			clearBtn.style.display = input.value ? 'block' : 'none';
 			document.getElementById('output').textContent = ''; // Clear the output
 			document.getElementById('message').textContent = ''; // Clear the message
 		}
