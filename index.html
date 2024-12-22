@@ -309,12 +309,6 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!gurmukhiRegex.test(input.value)) {
             input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove non-Gurmukhi characters
         }
-	            // Show the clear button only if input has more than 0 characters
-        if (input.value.trim().length > 0) {
-            clearBtn.style.display = 'inline-block';  // Show the clear button
-        } else {
-            clearBtn.style.display = 'none';  // Hide the clear button
-        }
     });
 });
      
@@ -538,6 +532,11 @@ activateAnimation()
 	function toggleClearButton(input) {
 		const clearBtn = input.nextElementSibling;
 		clearBtn.style.display = input.value ? 'block' : 'none';
+ if (gurmukhiRegex.test(input.value.trim())) {
+        clearBtn.style.display = 'inline-block';  // Show the clear button
+    } else {
+        clearBtn.style.display = 'none';  // Hide the clear button
+    }
 		if (input.value) {
 			document.getElementById('output').textContent = ''; // Clear the output
 			document.getElementById('message').textContent = ''; // Clear the message
