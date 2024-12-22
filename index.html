@@ -208,19 +208,22 @@
 			   margin-bottom: 0;
 		}
 
-        #addDialog {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            z-index: 1000;
-        }
+#addDialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+    width: 50%; /* Set width to 50% of the container */
+    max-width: 400px; /* Set a maximum width of 400px */
+}
+
 
         #addDialog button {
             margin: 10px;
@@ -316,7 +319,7 @@
         }
 		
 		input[type="text"]::placeholder {
-		font-size: 15px; 
+		font-size: 17px; 
     opacity: 0.6;   /* Slightly transparent */
 }
 
@@ -627,8 +630,7 @@ activateAnimation()
     <div id="message" class="message"></div>
 	
 	    <div id="addDialog">
-			<p>ਇਹ ਨਾਮ ਮੌਜੂਦ ਨਹੀਂ,</p>
-			<p>ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</p>
+			<p>ਇਹ ਨਾਮ ਮੌਜੂਦ ਨਹੀਂ, ਕੀ ਤੁਸੀਂ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</p>
 			<button class="add-btn">Yes</button>
 			<button class="cancel-btn">No</button>
 		</div>
