@@ -117,7 +117,7 @@
 			border-radius: 5px;
 		}
 
-#aboutButton {
+		#aboutButton {
 			position: fixed;
 			top: 10px;
 			left: 10px;
@@ -191,20 +191,22 @@
 			   margin-bottom: 0;
 		}
 
-        #addDialog {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            z-index: 1000;
-
-        }
+    
+#addDialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 10px; /* Reduce the padding to reduce inner white space */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 1000;
+    width: 80%; /* Make the width responsive */
+    max-width: 400px; /* Set a maximum width */
+}
 
         #addDialog button {
             margin: 10px;
