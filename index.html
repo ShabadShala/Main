@@ -1,659 +1,293 @@
-<!DOCTYPE html>
-<html lang="pa">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Singh-Kaur</title>
-
-    <style>
-        body {
-            background-color: #fff0f5; /* Very light pink */
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
-
-        h1 {
-            font-size: 2em;
-            color: #000;
-			text-align: center;
-        }
-
-        .line {
-            width: 200px;
-            height: 2px;
-            background-color: black;
-            margin: 10px auto;
-        }
-
-        a {
-            text-decoration: none;
-            font-size: 1.5em;
-            color: blue;
-        }
-
-        .search-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 20px;
-    margin-bottom: 40px !important;
-        }
-
-        .input-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-
-        input[type="text"] {
-            font-size: 1.2em;
-            padding: 10px;
-            width: 150px;
-            box-sizing: border-box;
-            padding-right: 40px; /* Space for the clear button */
-        }
-
-        .clear-btn {
-            display: none;
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: transparent;
-            border: none;
-            font-size: 1.5em;
-            color: black;
-            cursor: pointer;
-        }
-
-        .clear-btn:hover {
-            color: red;
-            transform: translateY(-50%) scale(1.1);
-            transition: all 0.2s;
-        }
-
-        .display-btn {
-            font-size: 1.2em;
-            padding: 10px 20px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            height: 40px; /* Align with input height */
-            margin-left: 10px;
-        }
-
-        .display-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .output-text {
-            font-size: 1.5em;
-            color: #000;
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .message {
-            font-size: 1.2em;
-            color: #ff0000; /* Default red */
-            margin-top: 10px;
-        }
-
-        .message.found {
-            color: #007b00; /* Green for found */
-        }
-		
-		#helpButton {
-			position: fixed;
-			top: 10px;
-			right: 10px;
-			background-color: #4CAF50;
-			color: white;
-			border: none;
-			padding: 5px 10px;
-			font-size: 16px;
-			cursor: pointer;
-			border-radius: 5px;
-		}
-
-		#aboutButton {
-			position: fixed;
-			top: 10px;
-			left: 10px;
-			background-color: #4CAF50;
-			color: white;
-			border: none;
-			padding: 5px 10px;
-			font-size: 16px;
-			cursor: pointer;
-			border-radius: 5px;
-		}
-
-
-		#popupOverlay, #aboutpopupOverlay {
-			display: none;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-			z-index: 9999;
-		}
-
-		/* Style for the Popup content */
-		#popupOverlay > div, #aboutpopupOverlay > div {
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			transform: translate(-50%, -50%);
-			background-color: white;
-			padding: 20px;
-			border-radius: 10px;
-			width: 300px;
-			text-align: Center;
-		}
-
-		/* Reduce the left margin in the popup */
-		.popup-container {
-			margin: 0 auto;
-			padding: 20px; /* Add padding to make content look centered */
-			max-width: 400px; /* Limit popup width */
-			background-color: #fff; /* Ensure it's visible */
-			border-radius: 8px; /* Optional: add rounded corners */
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: shadow for a modern look */
-		}
-
-		/* Style for the list */
-		.instructions-list {
-			padding-left: 20px; /* Adjust the left padding for bullets */
-			list-style-type: disc; /* Ensure bullets appear */
-			margin: 10px 0; /* Add space above and below the list */
-					text-align: left;
-		}
-
-		.instructions-list li {
-			margin-bottom: 15px; /* Add space between list items */
-		}
-
-		/* Style for the OK button inside the popup */
-		#closePopup, #aboutclosePopup {
-			display: block; /* Make the button a block element */
-			margin: 20px auto; /* Center the button horizontally and add spacing */
-			background-color: #f44336;
-			color: white;
-			padding: 10px 20px;
-			border: none;
-			cursor: pointer;
-			border-radius: 10px;
-			font-size: 16px;
-			   margin-bottom: 0;
-		}
-
-    
-#addDialog {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 10px; /* Reduce the padding to reduce inner white space */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
-    z-index: 1000;
-    width: 80%; /* Make the width responsive */
-    max-width: 400px; /* Set a maximum width */
-}
-
-        #addDialog button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 1em;
-            cursor: pointer;
-        }
-
-        #addDialog .add-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-			border-radius: 5px;
-        }
-
-        #addDialog .cancel-btn {
-            background-color: #f44336;
-            color: white;
-            border: none;
-			border-radius: 5px;
-        }
-
-        #overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
-		
-		.loading {
-			display: none;
-			margin: 20px auto;
-			border: 4px solid #f3f3f3;
-			border-top: 4px solid #006400;
-			border-radius: 50%;
-			width: 40px;
-			height: 40px;
-			animation: spin 1s linear infinite;
-		}
-		
-		@keyframes spin {
-			0% {
-			transform: rotate(0deg);
-			}
-			100% {
-			transform: rotate(360deg);
-			}
-		}
-		
-		/* CSS class to fully disable hover effect */
-		.no-hover {
-			pointer-events: none !important; /* Disables all interactions, including hover */
-			opacity: 0.5; /* Optional: dim the button to show it's disabled */
-		}
-
-   /* General styles for the animation container */
-		#baby-animation {
-			position: relative; /* Position relative to its parent container */
-		
-			left: 50%; /* Adjust as needed */
-			font-size: 50px;
-			z-index: 1000;
-			transform: none; /* No translation, place as per normal flow */
-			  margin-top: 40px;
-		}
-
-        /* Animation styles */
-        @keyframes bounce {
-            0%, 100% {
-                transform: translate(-50%, 0);
-            }
-            50% {
-                transform: translate(-50%, -20px);
-            }
-        }
-
-        .animation {
-            animation: bounce 1s infinite;
-        }
-
-        /* Hidden state */
-        .hidden {
-            display: none;
-        }
-		
-		        .flip-horizontal {
-            display: inline-block;
-            transform: scaleX(-1); /* Flips horizontally */
-        }
-    </style>
-
-    <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const input = document.querySelector('input[type="text"]');
-
-    // Add event listener to validate Gurmukhi characters
-    input.addEventListener('input', function() {
-        const gurmukhiRegex = /^[\u0A00-\u0A7F]*$/; // Gurmukhi Unicode range
-        if (!gurmukhiRegex.test(input.value)) {
-            input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove non-Gurmukhi characters
-        }
-    });
-});
-     
-
-        // Function to activate animation
-        function activateAnimation() {
-		  const babyAnimation = document.getElementById('baby-animation');
-            babyAnimation.classList.remove('hidden');
-            babyAnimation.classList.add('animation');
-        }
-
-        // Function to deactivate animation
-        function deactivateAnimation() {
-		  const babyAnimation = document.getElementById('baby-animation');
-            babyAnimation.classList.remove('animation');
-            babyAnimation.classList.add('hidden');
-        }
-
-        // Trigger animation based on scroll position
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-
-            // Activate animation at 300px scroll, deactivate after 600px
-            if (scrollY > 300 && scrollY < 600) {
-                activateAnimation();
-            } else {
-                deactivateAnimation();
-            }
-        });
-	
-	document.addEventListener("DOMContentLoaded", function() {
-    const input = document.querySelector('input[type="text"]');
-    const searchBtn = document.querySelector('.display-btn');
-    
-    // Disable the search button on page load if the input is empty
-    if (input.value.trim() === '') {
-        searchBtn.disabled = true;
-        searchBtn.classList.add('no-hover');  // Add no-hover if button is disabled
+<style>
+    body {
+        background-color: #fff0f5; /* Very light pink */
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
     }
 
-    // Add an event listener to monitor changes in the input field
-    input.addEventListener('input', function() {
-        if (input.value.trim() === '') {
-            searchBtn.disabled = true;
-            searchBtn.classList.add('no-hover');  // Add no-hover if button is disabled
-        } else {
-            searchBtn.disabled = false;
-            searchBtn.classList.remove('no-hover');  // Remove no-hover if button is enabled
+    h1 {
+        font-size: 2em;
+        color: #000;
+        text-align: center;
+    }
+
+    .line {
+        width: 200px;
+        height: 2px;
+        background-color: black;
+        margin: 10px auto;
+    }
+
+    a {
+        text-decoration: none;
+        font-size: 1.5em;
+        color: blue;
+    }
+
+    .search-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 40px !important;
+    }
+
+    .input-wrapper {
+        position: relative;
+        display: inline-block;
+    }
+
+    input[type="text"] {
+        font-size: 1.2em;
+        padding: 10px;
+        width: 150px;
+        box-sizing: border-box;
+        padding-right: 40px; /* Space for the clear button */
+    }
+
+    .clear-btn {
+        display: none;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: transparent;
+        border: none;
+        font-size: 1.5em;
+        color: black;
+        cursor: pointer;
+    }
+
+    .clear-btn:hover {
+        color: red;
+        transform: translateY(-50%) scale(1.1);
+        transition: all 0.2s;
+    }
+
+    .display-btn {
+        font-size: 1.2em;
+        padding: 10px 20px;
+        cursor: pointer;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        height: 40px; /* Align with input height */
+        margin-left: 10px;
+    }
+
+    .display-btn:hover {
+        background-color: #0056b3;
+    }
+
+    .output-text {
+        font-size: 1.5em;
+        color: #000;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .message {
+        font-size: 1.2em;
+        color: #ff0000; /* Default red */
+        margin-top: 10px;
+    }
+
+    .message.found {
+        color: #007b00; /* Green for found */
+    }
+    
+    #helpButton {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    #aboutButton {
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    #popupOverlay, #aboutpopupOverlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 9999;
+    }
+
+    /* Style for the Popup content */
+    #popupOverlay > div, #aboutpopupOverlay > div {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        text-align: Center;
+    }
+
+    /* Reduce the left margin in the popup */
+    .popup-container {
+        margin: 0 auto;
+        padding: 20px; /* Add padding to make content look centered */
+        max-width: 400px; /* Limit popup width */
+        background-color: #fff; /* Ensure it's visible */
+        border-radius: 8px; /* Optional: add rounded corners */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: shadow for a modern look */
+    }
+
+    /* Style for the list */
+    .instructions-list {
+        padding-left: 20px; /* Adjust the left padding for bullets */
+        list-style-type: disc; /* Ensure bullets appear */
+        margin: 10px 0; /* Add space above and below the list */
+        text-align: left;
+    }
+
+    .instructions-list li {
+        margin-bottom: 15px; /* Add space between list items */
+    }
+
+    /* Style for the OK button inside the popup */
+    #closePopup, #aboutclosePopup {
+        display: block; /* Make the button a block element */
+        margin: 20px auto; /* Center the button horizontally and add spacing */
+        background-color: #f44336;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 10px;
+        font-size: 16px;
+        margin-bottom: 0;
+    }
+
+    #addDialog {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        padding: 10px; /* Reduce the padding to reduce inner white space */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        z-index: 1000;
+        width: 80%; /* Make the width responsive */
+        max-width: 400px; /* Set a maximum width */
+    }
+
+    #addDialog button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 1em;
+        cursor: pointer;
+    }
+
+    #addDialog .add-btn {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+
+    #addDialog .cancel-btn {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+
+    #overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .loading {
+        display: none;
+        margin: 20px auto;
+        border: 4px solid #f3f3f3;
+        border-top: 4px solid #006400;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
         }
-    });
-});
-
-// Disable input field while search is in progress
-function disableInput(disableAll = true) {
-    const input = document.querySelector('input[type="text"]');
-    const clearBtn = input.nextElementSibling; // Cross button
-    const searchBtn = document.querySelector('.display-btn');
-    
-    if (disableAll) {
-        input.disabled = true;  // Disable the text box
-        clearBtn.style.display = 'none';  // Hide the clear button
-    }
-    
-    searchBtn.disabled = true;  // Disable the search button
-    searchBtn.classList.add('no-hover');  // Disable the hover effect
-}
-
-// Enable input field after search completes
-function enableInput(enableAll = true) {
-    const input = document.querySelector('input[type="text"]');
-    const clearBtn = input.nextElementSibling; // Cross button
-    const searchBtn = document.querySelector('.display-btn');
-    
-    if (enableAll) {
-        input.disabled = false;  // Enable the text box
-        clearBtn.style.display = 'inline-block';  // Show the clear button
-    }
-    
-    searchBtn.disabled = false;  // Enable the search button
-    searchBtn.classList.remove('no-hover');  // Enable the hover effect
-}
-
-// Main search function
-async function searchName() {
-    const input = document.querySelector('input[type="text"]');
-    const name = input.value.trim();
-    const outputDiv = document.getElementById('output');
-    const messageDiv = document.getElementById('message');
-    const loadingSpinner = document.getElementById('loading');  // Assuming the spinner has this ID
-
-    // Check if the input is empty, disable accordingly
-    if (!name) {
-        disableInput(false);  // Disable only the search and hover button
-        return;  // Stop execution if input is empty
-    } else {
-        enableInput(false);  // Enable the search and hover button if input exists
-    }
-
-    // Now, proceed with the search, disable all inputs
-    disableInput();  
-    messageDiv.textContent = 'Please wait...';
-    messageDiv.classList.remove('found');
-    loadingSpinner.style.display = "block";
-
-    try {
-        const response = await fetch(`https://script.google.com/macros/s/AKfycbwtgYqy2foYuW3yvA-HBPD9BcIL6BQ0oVW90n0pZWN2RpYP04ue2nF9PLsoKhp3qi3t/exec?action=searchName&name=${encodeURIComponent(name)}`);
-        const result = await response.json();
-        loadingSpinner.style.display = "none";  // Hide loading spinner
-
-        // Enable input after search completes
-        enableInput();
-
-
-        // Handle the result based on the search status
-        if (result.status === 'found') {
-            messageDiv.textContent = '✅ ਨਾਮ ਮੌਜੂਦ ਹੈ';
-			activateAnimation()
-            messageDiv.classList.add('found');
-        } else if (result.status === 'not_found') {
-            showAddDialog(name);
-        } else {
-            messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
+        100% {
+            transform: rotate(360deg);
         }
-    } catch (error) {
-        enableInput();  // Ensure input is enabled even if an error occurs
-        loadingSpinner.style.display = "none";  // Hide the loading spinner in case of error
-        messageDiv.textContent = `⚠️ ਗੜਬੜ (${error.message})`;
-        console.error('Error:', error);
     }
-}
 
+    /* CSS class to fully disable hover effect */
+    .no-hover {
+        pointer-events: none !important; /* Disables all interactions, including hover */
+        opacity: 0.5; /* Optional: dim the button to show it's disabled */
+    }
 
-	function showAddDialog(name) {
-		const addDialog = document.getElementById('addDialog');
-		const overlay = document.getElementById('overlay');
+    /* General styles for the animation container */
+    #baby-animation {
+        position: relative; /* Position relative to its parent container */
+        left: 50%; /* Adjust as needed */
+        font-size: 50px;
+        z-index: 1000;
+        transform: none; /* No translation, place as per normal flow */
+        margin-top: 40px;
+    }
 
-		addDialog.querySelector('.add-btn').onclick = async function () {
-		disableInput();
-			closePopup();
-			enableAnimation();
-			await addNameToSheet(name);
-			showMessage('✅ ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ');
-			
-			enableInput();
-		};
+    /* Animation styles */
+    @keyframes bounce {
+        0%, 100% {
+            transform: translate(-50%, 0);
+        }
+        50% {
+            transform: translate(-50%, -20px);
+        }
+    }
 
-		addDialog.querySelector('.cancel-btn').onclick = function () {
-			// Clear the "Please wait..." message
-			const statusMessageElement = document.getElementById("statusMessage");
-				if (statusMessageElement) {
-					statusMessageElement.innerHTML = ""; // Ensure the message is cleared
-				}
-				// Close the popup
-				closePopup();
-				showMessage('');
-		};
+    .animation {
+        animation: bounce 1s infinite;
+    }
 
-		addDialog.style.display = 'block';
-		overlay.style.display = 'block';
-	}
+    /* Hidden state */
+    .hidden {
+        display: none;
+    }
 
-	function closePopup() {
-		const addDialog = document.getElementById('addDialog');
-		const overlay = document.getElementById('overlay');
-
-		addDialog.style.display = 'none';
-		overlay.style.display = 'none';
-	}
-	
-		function aboutclosePopup() {
-		const addDialog = document.getElementById('addDialog');
-		const overlay = document.getElementById('overlay');
-
-		addDialog.style.display = 'none';
-		overlay.style.display = 'none';
-	}
-
-	function enableAnimation() {
-		const loadingSpinner = document.getElementById('loading');
-		loadingSpinner.style.display = 'block';
-	}
-
-	function showMessage(message) {
-		const messageDiv = document.getElementById('message');
-		const loadingSpinner = document.getElementById('loading');
-
-		loadingSpinner.style.display = 'none';
-		messageDiv.textContent = message;
-		messageDiv.classList.add('found');
-	}
-
-
-    async function addNameToSheet(name) {
-		const messageDiv = document.getElementById('message');
-		messageDiv.textContent = 'Adding...';
-
-		try {
-			const response = await fetch(`https://script.google.com/macros/s/AKfycbwtgYqy2foYuW3yvA-HBPD9BcIL6BQ0oVW90n0pZWN2RpYP04ue2nF9PLsoKhp3qi3t/exec?action=addNameToSheet&name=${encodeURIComponent(name)}`);
-			const result = await response.json();
-
-			if (result.status === 'added') {
-activateAnimation()
-				messageDiv.textContent = 'ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ';
-		
-			} else {
-				messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
-			}
-		} catch (error) {
-			messageDiv.textContent = `⚠️ ਗੜਬੜ (${error.message})`;
-			console.error('Error:', error);
-		}
-	}
-
-	function allowGurmukhi(event) {
-		const gurmukhiRegex = /^[\u0A00-\u0A7F]+$/;
-		if (!gurmukhiRegex.test(event.key) && event.key !== 'Backspace') {
-			event.preventDefault();
-		}
-	}
-
-	function toggleClearButton(input) {
-		const clearBtn = input.nextElementSibling;
-		clearBtn.style.display = input.value ? 'block' : 'none';
-		if (input.value) {
-			document.getElementById('output').textContent = ''; // Clear the output
-			document.getElementById('message').textContent = ''; // Clear the message
-		}
-	}
-
-	function clearInput(input) {
-		input.value = ''; // Clear the input
-		toggleClearButton(input); // Hide the clear button
-		document.getElementById('output').textContent = ''; // Clear the output
-		document.getElementById('message').textContent = ''; // Clear the message
-		input.focus();
-		disableInput(false)
-		deactivateAnimation()
-	}
-    </script>
-	
-</head>
-
-<body>
-
-	<!-- About Button -->
-	<button id="aboutButton">About</button>
-	<!-- Popup Overlay -->
-	<div id="aboutpopupOverlay">
-		<div class="popup-container">
-			<strong>ਸ਼ਬਦਸ਼ਾਲਾ ਦੇ ਤਹਿਤ</strong>
-			<ul class="instructions-list"><br>
-				<li>ਪੰਜਾਬੀ ਸ਼ਬਦਕੋਸ਼ਾਂ ਨੂੰ ਡਿਜੀਟਾਈਜ਼ ਕਰਨਾ</li>
-				<li>ਨਵੇਂ ਸ਼ਬਦ ਇਕੱਠੇ ਕਰਨੇ ਤੇ ਘੜਨੇ</li>
-				<li>ਨਵੇਂ ਸ਼ਬਦਕੋਸ਼ ਬਣਾਉਣੇ, ਆਨਲਾਈਨ ਕਰਨੇ</li>
-				<li>ਆਨਲਾਈਨ ਪੰਜਾਬੀ ਲੋੜਾਂ ਦੀ ਪੂਰਤੀ</li>
-				<li>ਸਿੱਖਿਆ ਸਮਗਰੀ, ਕਿਤਾਬਾਂ ਵਗੈਰਾ</li>
-			</ul>
-			<button id="aboutclosePopup">OK</button>
-		</div>
-	</div>
-
-	<!-- Help Button -->
-	<button id="helpButton">Help</button>
-	<!-- Popup Overlay -->
-	<div id="popupOverlay">
-		<div class="popup-container">
-			<strong>ਨਾਮ ਲਿਖਣ ਬਾਰੇ</strong>
-			<ul class="instructions-list"><br>
-				<li>ਸਿਰਫ਼ ਗੁਰਮੁਖੀ ਪੰਜਾਬੀ ਹੀ ਲਿਖੀ ਜਾ ਸਕਦੀ ਹੈ</li>
-				<li>ਖਾਲੀ ਥਾਂ ਨਹੀਂ ਲਾ ਸਕਦੇ ਜਿਵੇਂ ਕਿ 'ਟਹਿਲ ਦੀਪ', ਇਸਨੂੰ 'ਟਹਿਲਦੀਪ' ਲਿਖ ਸਕਦੇ ਹੋ</li>
-				<li>ਨਾਮ ਦਾ ਸਿਰਫ਼ ਪਹਿਲਾ ਸ਼ਬਦ ਲਿਖਣਾ ਹੈ, ਸਿੰਘ/ਕੌਰ ਜਾਂ ਗੋਤ ਵਗੈਰਾ ਨਹੀਂ ਲਗਾਉਣਾ</li>
-				<li>ਗੈਰ-ਪੰਜਾਬੀ ਭਾਸ਼ਾਵਾਂ ਦੇ ਸਿਰਫ਼ ਉਹੀ ਨਾਮ ਦਰਜ ਕਰੋ ਜੋ ਪੰਜਾਬੀ ਵਿੱਚ ਜ਼ਿਆਦਾ ਪ੍ਰਚਲਤ ਹਨ</li>
-			</ul>
-			<button id="closePopup">OK</button>
-		</div>
-	</div>
-
-<h1 style="margin-top: -25px;margin-bottom: 25px;font-size: 28px;">
-  <span class="flip-horizontal">🚩</span>ਸਿੰਘ-ਕੌਰ🚩
-</h1>
-
-    <div class="search-container";>
-        <div class="input-wrapper">
-            <input type="text" 
-       onkeypress="allowGurmukhi(event)" 
-       oninput="toggleClearButton(this); deactivateAnimation();" 
-       onkeydown="if(event.key === 'Enter') searchName()" 
-       placeholder="ਨਾਮ ਲਿਖੋ">
-            <button class="clear-btn" onclick="clearInput(this.previousElementSibling)">&times;</button>
-        </div>
-        <button class="display-btn" onclick="searchName() ; deactivateAnimation()">Check</button>
-    </div>
-
-	<div class="loading" id="loading"></div>
-
-    <div id="output" class="output-text"></div>
-    <div id="message" class="message"></div>
-	
-	    <div id="addDialog">
-			<p>ਇਹ ਨਾਮ ਮੌਜੂਦ ਨਹੀਂ, ਕੀ ਤੁਸੀਂ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</p>
-			<button class="add-btn">Yes</button>
-			<button class="cancel-btn">No</button>
-		</div>
-    <div id="overlay"></div>
-	
-    <div id="baby-animation" class="animation hidden">
-        👶🍼👼
-    </div>
-	
-    <div class="line"></div>
-    <a href="https://t.me/Shabadshala" target="_blank">ਸ਼ਬਦਸ਼ਾਲਾ</a>
-
-	<script>
-		// Get references to the button and popup elements
-		const helpButton = document.getElementById('helpButton');
-		const popupOverlay = document.getElementById('popupOverlay');
-		const closePopupButton = document.getElementById('closePopup');
-
-		// Show the popup when the help button is clicked
-		helpButton.addEventListener('click', function() {
-			popupOverlay.style.display = 'block';
-		});
-
-		// Close the popup when the close button is clicked
-		closePopupButton.addEventListener('click', function() {
-			popupOverlay.style.display = 'none';
-		});
-		
-				// Get references to the button and popup elements
-		const aboutButton = document.getElementById('aboutButton');
-		const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
-		const aboutclosePopupButton = document.getElementById('aboutclosePopup');
-
-		// Show the popup when the help button is clicked
-		aboutButton.addEventListener('click', function() {
-			aboutpopupOverlay.style.display = 'block';
-		});
-
-		// Close the popup when the close button is clicked
-		aboutclosePopupButton.addEventListener('click', function() {
-			aboutpopupOverlay.style.display = 'none';
-		});
-	</script>
-</body>
-</html>
+    .flip-horizontal {
+        display: inline-block;
+        transform: scaleX(-1); /* Flips horizontally */
+    }
+</style>
