@@ -309,6 +309,12 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!gurmukhiRegex.test(input.value)) {
             input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove non-Gurmukhi characters
         }
+	            // Show the clear button only if input has more than 0 characters
+        if (input.value.trim().length > 0) {
+            clearBtn.style.display = 'inline-block';  // Show the clear button
+        } else {
+            clearBtn.style.display = 'none';  // Hide the clear button
+        }
     });
 });
      
