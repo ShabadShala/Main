@@ -302,35 +302,15 @@
     <script>
 document.addEventListener("DOMContentLoaded", function() {
     const input = document.querySelector('input[type="text"]');
-    const clearBtn = input.nextElementSibling; // Clear button
-    const searchBtn = document.querySelector('.display-btn');
-    
-    // Update clear button visibility on input change
-    input.addEventListener('input', function() {
-        // Check if the input contains any text
-        if (input.value.trim() !== '') {
-            clearBtn.style.display = 'inline-block'; // Show clear button
-        } else {
-            clearBtn.style.display = 'none'; // Hide clear button
-        }
 
-        // Handle search button enabled/disabled state
-        if (input.value.trim() === '') {
-            searchBtn.disabled = true;
-            searchBtn.classList.add('no-hover');  // Add no-hover if button is disabled
-        } else {
-            searchBtn.disabled = false;
-            searchBtn.classList.remove('no-hover');  // Remove no-hover if button is enabled
-        }
-        
-        // Gurmukhi validation (optional)
+    // Add event listener to validate Gurmukhi characters
+    input.addEventListener('input', function() {
         const gurmukhiRegex = /^[\u0A00-\u0A7F]*$/; // Gurmukhi Unicode range
         if (!gurmukhiRegex.test(input.value)) {
             input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove non-Gurmukhi characters
         }
     });
 });
-
      
 
         // Function to activate animation
@@ -553,7 +533,6 @@ activateAnimation()
 		const clearBtn = input.nextElementSibling;
 		clearBtn.style.display = input.value ? 'block' : 'none';
 		if (input.value) {
-			clearBtn.style.display = input.value ? 'block' : 'none';
 			document.getElementById('output').textContent = ''; // Clear the output
 			document.getElementById('message').textContent = ''; // Clear the message
 		}
@@ -607,7 +586,7 @@ activateAnimation()
 		</div>
 	</div>
 
-<h1 style="margin-top: -20px;margin-bottom: 30px;font-size: 25px;">
+<h1 style="margin-top: -25px;margin-bottom: 25px;">
   <span class="flip-horizontal">🚩</span>ਸਿੰਘ-ਕੌਰ🚩
 </h1>
 
