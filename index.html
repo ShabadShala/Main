@@ -171,6 +171,9 @@
 			background-color: #fff; /* Ensure it's visible */
 			border-radius: 8px; /* Optional: add rounded corners */
 			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: shadow for a modern look */
+			
+			    max-height: 80vh; 
+				overflow-y: auto;
 		}
 
 		/* Style for the list */
@@ -469,7 +472,7 @@ async function searchName() {
     } catch (error) {
         enableInput();  // Ensure input is enabled even if an error occurs
         loadingSpinner.style.display = "none";  // Hide the loading spinner in case of error
-        messageDiv.textContent = `⚠️ ਗੜਬੜ (${error.message})`;
+        messageDiv.textContent = `ਗੜਬੜ (${error.message})`;
         console.error('Error:', error);
     }
 }
@@ -551,7 +554,7 @@ activateAnimation()
 				messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
 			}
 		} catch (error) {
-			messageDiv.textContent = `⚠️ ਗੜਬੜ (${error.message})`;
+			messageDiv.textContent = `ਗੜਬੜ (${error.message})`;
 			console.error('Error:', error);
 		}
 	}
@@ -616,7 +619,7 @@ activateAnimation()
 		</div>
 	</div>
 
-<h1 style="margin-top: -20px;margin-bottom: 30px;">
+<h1 style="margin-top: -20px;margin-bottom: 30px;white-space: nowrap;">
   <span class="flip-horizontal">🚩</span> ਸਿੰਘ-ਕੌਰ 🚩
 </h1>
 
