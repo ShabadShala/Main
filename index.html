@@ -34,7 +34,15 @@
             height: 2px;
             background-color: black;
             margin: 10px auto;
+			display: block;
         }
+		
+		.linecontainer {
+    width: 100%;                /* Ensure container is full width */
+    display: flex;              /* Use Flexbox for centering */
+    justify-content: center;    /* Horizontally center the content */
+    align-items: center;        /* Vertically center if needed */
+}
 
         a {
             text-decoration: none;
@@ -627,7 +635,7 @@ activateAnimation()
 
 <div class="center-container">
 <h1 style="margin-top: -10px;margin-bottom: 15px;white-space: nowrap;">
-  <span class="flip-horizontal">🚩</span> ਸਿੰਘ-ਕੌਰ 🚩
+  <span class="flip-horizontal">🚩</span>ਸਿੰਘ-ਕੌਰ🚩
 </h1>
 </div>
 
@@ -659,7 +667,9 @@ activateAnimation()
         👶🍼👼
     </div>
 	
-    <div class="line"></div>
+        <div class="linecontainer">
+        <div class="line"></div>
+    </div>
     <a href="https://t.me/Shabadshala" target="_blank">ਸ਼ਬਦਸ਼ਾਲਾ</a>
 
 	<script>
