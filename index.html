@@ -48,7 +48,7 @@
         input[type="text"] {
             font-size: 1.2em;
             padding: 10px;
-            width: 150px;
+            width: 175px;
             box-sizing: border-box;
             padding-right: 40px; /* Space for the clear button */
         }
@@ -166,15 +166,32 @@
 		}
 
 		/* Style for the list */
-		.instructions-list {
+    .instructions-list {
+        padding-left: 0; /* Remove padding to align content with the left */
+        margin: 10px 0; /* Add space above and below the list */
+        text-align: justify; /* Justify the text */
+        list-style-type: none; /* Remove the bullets */
+    }
+
+.instructions-list li {
+    position: relative; /* Explicitly define block context */
+    line-height: 1.6; /* Adjust line spacing */
+    
+    text-indent: 30px; /* Indent only the first line */
+    margin-bottom: 15px; /* Space between items */
+}
+
+	/* Style for the list */
+		.instructions-list2 {
 			padding-left: 20px; /* Adjust the left padding for bullets */
 			list-style-type: disc; /* Ensure bullets appear */
 			margin: 10px 0; /* Add space above and below the list */
 					text-align: left;
 		}
 
-		.instructions-list li {
-			margin-bottom: 15px; /* Add space between list items */
+		.instructions-list2 li {
+			margin-bottom: 10px; /* Add space between list items */
+			 line-height: 1.5;
 		}
 
 		/* Style for the OK button inside the popup */
@@ -297,6 +314,12 @@
             display: inline-block;
             transform: scaleX(-1); /* Flips horizontally */
         }
+		
+		input[type="text"]::placeholder {
+		font-size: 15px; 
+    opacity: 0.6;   /* Slightly transparent */
+}
+
     </style>
 
     <script>
@@ -560,11 +583,7 @@ activateAnimation()
 		<div class="popup-container">
 			<strong>ਸ਼ਬਦਸ਼ਾਲਾ ਦੇ ਤਹਿਤ</strong>
 			<ul class="instructions-list"><br>
-				<li>ਪੰਜਾਬੀ ਸ਼ਬਦਕੋਸ਼ਾਂ ਨੂੰ ਡਿਜੀਟਾਈਜ਼ ਕਰਨਾ</li>
-				<li>ਨਵੇਂ ਸ਼ਬਦ ਇਕੱਠੇ ਕਰਨੇ ਤੇ ਘੜਨੇ</li>
-				<li>ਨਵੇਂ ਸ਼ਬਦਕੋਸ਼ ਬਣਾਉਣੇ, ਆਨਲਾਈਨ ਕਰਨੇ</li>
-				<li>ਆਨਲਾਈਨ ਪੰਜਾਬੀ ਲੋੜਾਂ ਦੀ ਪੂਰਤੀ</li>
-				<li>ਸਿੱਖਿਆ ਸਮਗਰੀ, ਕਿਤਾਬਾਂ ਵਗੈਰਾ</li>
+				<li>ਪੰਜਾਬੀ ਕੋਸ਼ਕਾਰੀ ਦਾ ਕੰਮ ਜਿਵੇਂ ਪੁਰਾਣੇ ਸ਼ਬਦਕੋਸ਼ਾਂ ਨੂੰ ਡਿਜੀਟਾਈਜ ਕਰਨਾ, ਸੁਧਾਈ ਕਰਨਾ, ਨਵੇਂ ਸ਼ਬਦਕੋਸ਼ ਤੇ ਤਕਨੀਕੀ ਸ਼ਬਦਵਾਲੀਆਂ ਬਣਾਉਣਾ, ਸ਼ਬਦਾਂ 'ਤੇ ਅਧਾਰਤ ਸਿੱਖਿਆ ਸਮਗਰੀ, ਰੌਚਕ ਪੋਸਟਾਂ, ਕਿਤਾਬਾਂ ਵਗੈਰਾ ਅਤੇ ਪੰਜਾਬੀ ਦੀਆਂ ਆਨਲਾਈਨ ਅੜਾਂ-ਥੁੜਾਂ ਦੀ ਪੂਰਤੀ ਕਰਨਾ ਹੈ।</li>
 			</ul>
 			<button id="aboutclosePopup">OK</button>
 		</div>
@@ -576,11 +595,11 @@ activateAnimation()
 	<div id="popupOverlay">
 		<div class="popup-container">
 			<strong>ਨਾਮ ਲਿਖਣ ਬਾਰੇ</strong>
-			<ul class="instructions-list"><br>
+			<ul class="instructions-list2"><br>
 				<li>ਸਿਰਫ਼ ਗੁਰਮੁਖੀ ਪੰਜਾਬੀ ਹੀ ਲਿਖੀ ਜਾ ਸਕਦੀ ਹੈ</li>
 				<li>ਖਾਲੀ ਥਾਂ ਨਹੀਂ ਲਾ ਸਕਦੇ ਜਿਵੇਂ ਕਿ 'ਟਹਿਲ ਦੀਪ', ਇਸਨੂੰ 'ਟਹਿਲਦੀਪ' ਲਿਖ ਸਕਦੇ ਹੋ</li>
 				<li>ਨਾਮ ਦਾ ਸਿਰਫ਼ ਪਹਿਲਾ ਸ਼ਬਦ ਲਿਖਣਾ ਹੈ, ਸਿੰਘ/ਕੌਰ ਜਾਂ ਗੋਤ ਵਗੈਰਾ ਨਹੀਂ ਲਗਾਉਣਾ</li>
-				<li>ਗੈਰ-ਪੰਜਾਬੀ ਭਾਸ਼ਾਵਾਂ ਦੇ ਸਿਰਫ਼ ਉਹੀ ਨਾਮ ਦਰਜ ਕਰੋ ਜੋ ਪੰਜਾਬੀ ਵਿੱਚ ਜ਼ਿਆਦਾ ਪ੍ਰਚਲਤ ਹਨ</li>
+				<li>ਗੈਰ-ਪੰਜਾਬੀ ਭਾਸ਼ਾਵਾਂ ਦੇ ਸਿਰਫ਼ ਉਹੀ ਨਾਮ ਦਰਜ ਕਰੋ ਜੋ ਪੰਜਾਬੀ ਵਿੱਚ ਜ਼ਿਆਦਾ ਪ੍ਰਚਲਿਤ ਹਨ</li>
 			</ul>
 			<button id="closePopup">OK</button>
 		</div>
@@ -610,8 +629,8 @@ activateAnimation()
 	    <div id="addDialog">
 			<p>ਇਹ ਨਾਮ ਮੌਜੂਦ ਨਹੀਂ,</p>
 			<p>ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</p>
-			<button class="add-btn">ਕਰ ਦੇਵੋ</button>
-			<button class="cancel-btn">ਰੱਦ ਕਰੋ</button>
+			<button class="add-btn">Yes</button>
+			<button class="cancel-btn">No</button>
 		</div>
     <div id="overlay"></div>
 	
