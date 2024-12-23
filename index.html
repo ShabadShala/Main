@@ -307,6 +307,7 @@
 			z-index: 1000;
 			transform: none; /* No translation, place as per normal flow */
 			margin-top: 40px;
+			
 			white-space: nowrap; /* Prevent text from wrapping onto multiple lines */
 			text-align: center;
 			}
@@ -501,7 +502,6 @@
 					}
 					// Close the popup
 					closePopup();
-					disableInput(false);
 					showMessage('');
 				};
 				
@@ -551,7 +551,7 @@
 					if (result.status === 'added') {
 						activateAnimation()
 						messageDiv.textContent = 'ਨਾਮ ਸ਼ਾਮਲ ਕੀਤਾ';
-						
+						fetchRecordCount();
 						} else {
 						messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
 					}
@@ -585,6 +585,29 @@
 				input.focus();
 				disableInput(false)
 				deactivateAnimation()
+			}
+
+		   function fetchRecordCount() {
+				  // Replace with your script URL
+				  const url = 'https://script.google.com/macros/s/AKfycbwqgiJ_4sk24AxGPTQqcQtlTydEXlOfDIYJ8uVmb4-LHgdfA4XWHaPjNc2475g0fbFK/exec?action=getRecordCount';
+				  
+				  fetch(url)
+					.then(response => response.json())
+					.then(data => {
+					  if (data.status === "success") {
+						document.getElementById("result").innerHTML = data.count;
+					  } else {
+						document.getElementById("result").innerHTML = "Error: " + data.error;
+					  }
+					})
+					.catch(error => {
+					  document.getElementById("result").innerHTML = "Error fetching record count";
+					  console.error("Error fetching data:", error);
+					});
+				}
+
+			window.onload = function() {
+				fetchRecordCount();
 			}
 		</script>
 		
@@ -654,6 +677,10 @@
 		<div id="baby-animation" class="animation hidden">
 			👶🍼👼
 		</div>
+		
+  <br><h2 style="display: inline; font-size: 24px;">ਕੁੱਲ ਨਾਮ - </h2>
+  <div id="result" style="display: inline; font-size: 24px;font-weight: bold;">Loading...</div>
+
 		
 		<div class="linecontainer">
 			<div class="line"></div>
