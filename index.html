@@ -52,8 +52,7 @@
 
         .search-container {
             display: flex;
-		
-            justify-content: center;
+			justify-content: center;
             align-items: center;
             margin-top: 20px;
 			margin-bottom: 30px !important;
@@ -61,7 +60,7 @@
 
         .input-wrapper {
             position: relative;
-            display: inline-block;
+            display: inline-block;			
 			max-width: 100%;
         }
 
@@ -506,7 +505,7 @@ async function searchName() {
 			closePopup();
 			enableAnimation();
 			await addNameToSheet(name);
-			showMessage('✅ ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ');			
+			showMessage('✅ ਨਾਮ ਸ਼ਾਮਲ ਕੀਤਾ');			
 			enableInput();
 		};
 
@@ -566,7 +565,7 @@ async function searchName() {
 
 			if (result.status === 'added') {
 activateAnimation()
-				messageDiv.textContent = 'ਨਾਮ ਸ਼ਾਮਲ ਹੋਇਆ';
+				messageDiv.textContent = 'ਨਾਮ ਸ਼ਾਮਲ ਕੀਤਾ';
 		
 			} else {
 				messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
@@ -638,7 +637,7 @@ activateAnimation()
 	</div>
 
 <div class="center-container">
-<h1 style="margin-top: -10px;margin-bottom: 10px;white-space: nowrap;">
+<h1 style="margin-top: -5px;margin-bottom: 5px;white-space: nowrap;">
   <span class="flip-horizontal">🚩</span> ਸਿੰਘ-ਕੌਰ 🚩
 </h1>
 </div>
@@ -671,10 +670,19 @@ activateAnimation()
         👶🍼👼
     </div>
 	
-        <div class="linecontainer">
+    <div class="linecontainer">
         <div class="line"></div>
     </div>
     <a href="https://t.me/Shabadshala" target="_blank">ਸ਼ਬਦਸ਼ਾਲਾ</a>
+
+<div style="display: flex; align-items: center; justify-content: center;">
+  <h3 style="margin-right: 10px;">Visitor </h3>
+<!-- hitwebcounter Code START -->
+<a href="https://www.hitwebcounter.com" target="_blank">
+    <img src="https://hitwebcounter.com/counter/counter.php?page=18035707&style=0006&nbdigits=5&type=page&initCount=0" title="Counter Widget" alt="Visit counter For Websites" border="" />
+  </a>
+  <!-- hitwebcounter Code END -->
+</div>
 
 	<script>
 		// Get references to the button and popup elements
