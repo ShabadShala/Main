@@ -188,14 +188,14 @@
 			
 			.instructions-list {
 			padding-left: 0; /* Remove padding to align content with the left */
-			margin: 10px 0; /* Add space above and below the list */
+			margin: 5px 0; /* Add space above and below the list */
 			text-align: justify; /* Justify the text */
 			list-style-type: none; /* Remove the bullets */
 			}
 			
 			.instructions-list li {
 			position: relative; /* Explicitly define block context */
-			line-height: 1.5; /* Adjust line spacing */			
+			line-height: 1.4; /* Adjust line spacing */			
 			text-indent: 30px; /* Indent only the first line */
 			margin-bottom: 15px; /* Space between items */
 			}
@@ -203,12 +203,12 @@
 			.instructions-list2 {
 			padding-left: 20px; /* Adjust the left padding for bullets */
 			list-style-type: disc; /* Ensure bullets appear */
-			margin: 10px 0; /* Add space above and below the list */
+			margin: 5px 0; /* Add space above and below the list */
 			text-align: left;
 			}
 			
 			.instructions-list2 li {
-			margin-bottom: 8px; /* Add space between list items */
+			margin-bottom: 5px; /* Add space between list items */
 			line-height: 1.4;
 			}
 			
@@ -340,6 +340,23 @@
 			font-size: 17px; 
 			opacity: 0.6;   /* Slightly transparent */
 			}
+			
+			    .count-container {
+      white-space: nowrap;
+    }
+
+    h2 {
+      display: inline;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    #result {
+      display: inline;
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0;
+    }
 		</style>
 		
 		<script>
@@ -447,7 +464,7 @@
 				
 				// Now, proceed with the search, disable all inputs
 				disableInput();  
-				messageDiv.textContent = 'Please wait...';
+				messageDiv.textContent = 'Please wait';
 				messageDiv.classList.remove('found');
 				loadingSpinner.style.display = "block";
 				
@@ -495,7 +512,7 @@
 				};
 				
 				addDialog.querySelector('.cancel-btn').onclick = function () {
-					// Clear the "Please wait..." message
+					// Clear the "Please wait" message
 					const statusMessageElement = document.getElementById("statusMessage");
 					if (statusMessageElement) {
 						statusMessageElement.innerHTML = ""; // Ensure the message is cleared
@@ -542,16 +559,16 @@
 			
 			async function addNameToSheet(name) {
 				const messageDiv = document.getElementById('message');
-				messageDiv.textContent = 'Adding...';
+				messageDiv.textContent = 'Adding';
 				
 				try {
 					const response = await fetch(`https://script.google.com/macros/s/AKfycbwtgYqy2foYuW3yvA-HBPD9BcIL6BQ0oVW90n0pZWN2RpYP04ue2nF9PLsoKhp3qi3t/exec?action=addNameToSheet&name=${encodeURIComponent(name)}`);
 					const result = await response.json();
 					
 					if (result.status === 'added') {
+										fetchRecordCount();											
 						activateAnimation()
 						messageDiv.textContent = 'ਨਾਮ ਸ਼ਾਮਲ ਕੀਤਾ';
-						fetchRecordCount();
 						} else {
 						messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
 					}
@@ -588,6 +605,14 @@
 			}
 
 		   function fetchRecordCount() {
+		     let counter = 1000; // Initialize dummy counter
+  const resultDiv = document.getElementById('result');
+  // Start the dummy counter
+  const dummyCounter = setInterval(() => {
+    counter+= 93;
+    resultDiv.textContent = counter; // Update with dummy count
+  }, 100); // Increment every 100ms
+  
 				  // Replace with your script URL
 				  const url = 'https://script.google.com/macros/s/AKfycbwqgiJ_4sk24AxGPTQqcQtlTydEXlOfDIYJ8uVmb4-LHgdfA4XWHaPjNc2475g0fbFK/exec?action=getRecordCount';
 				  
@@ -595,12 +620,15 @@
 					.then(response => response.json())
 					.then(data => {
 					  if (data.status === "success") {
+					  clearInterval(dummyCounter);
 						document.getElementById("result").innerHTML = data.count;
 					  } else {
+					  clearInterval(dummyCounter);
 						document.getElementById("result").innerHTML = "Error: " + data.error;
 					  }
 					})
 					.catch(error => {
+					clearInterval(dummyCounter);
 					  document.getElementById("result").innerHTML = "Error fetching record count";
 					  console.error("Error fetching data:", error);
 					});
@@ -636,7 +664,7 @@
 				<strong>ਨਾਮ ਲਿਖਣ ਬਾਰੇ</strong>
 				<ul class="instructions-list2"><br>
 					<li>ਸਿਰਫ਼ ਗੁਰਮੁਖੀ ਪੰਜਾਬੀ ਹੀ ਲਿਖੀ ਜਾ ਸਕਦੀ ਹੈ</li>
-					<li>ਨਾਮ ਦਾ ਸਿਰਫ਼ ਪਹਿਲਾ ਸ਼ਬਦ ਲਿਖਣਾ ਹੈ, ਸਿੰਘ/ਕੌਰ ਜਾਂ ਗੋਤ ਵਗੈਰਾ ਨਹੀਂ ਲਗਾਉਣਾ</li>
+					<li>ਨਾਮ ਦਾ ਸਿੰਘ/ਕੌਰ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ ਹਿੱਸਾ ਲਿਖੋ</li>
 					<li>ਖਾਲੀ ਥਾਂ ਵੀ ਨਹੀਂ ਲੱਗੇਗੀ ਜਿਵੇਂ ਕਿ 'ਟਹਿਲ ਦੀਪ', ਇਸਨੂੰ 'ਟਹਿਲਦੀਪ' ਲਿਖ ਸਕਦੇ ਹੋ</li>
 					<li>ਗੈਰ-ਪੰਜਾਬੀ ਭਾਸ਼ਾਵਾਂ ਦੇ ਸਿਰਫ਼ ਉਹੀ ਨਾਮ ਦਰਜ ਕਰੋ ਜੋ ਪੰਜਾਬੀ ਵਿੱਚ ਜ਼ਿਆਦਾ ਪ੍ਰਚਲਿਤ ਹਨ</li>
 				</ul>
@@ -678,9 +706,10 @@
 			👶🍼👼
 		</div>
 		
-  <br><h2 style="display: inline; font-size: 24px;">ਕੁੱਲ ਨਾਮ - </h2>
-  <div id="result" style="display: inline; font-size: 24px;font-weight: bold;">Loading...</div>
-
+	<div class="count-container">
+    <br><h2>Total - </h2>
+    <div id="result">0</div>
+	</div>
 		
 		<div class="linecontainer">
 			<div class="line"></div>
@@ -726,6 +755,6 @@
 			aboutclosePopupButton.addEventListener('click', function() {
 				aboutpopupOverlay.style.display = 'none';
 			});
-		</script>
+  </script>
 	</body>
 </html>				
