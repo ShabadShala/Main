@@ -65,7 +65,7 @@
 			input[type="text"] {
             font-size: 1.2em;
             padding: 10px;
-            width: 165px;
+            width: 150px;
             box-sizing: border-box;
             padding-right: 40px; /* Space for the clear button */
 			}
@@ -341,22 +341,22 @@
 			opacity: 0.6;   /* Slightly transparent */
 			}
 			
-			    .count-container {
-      white-space: nowrap;
-    }
-
-    h2 {
-      display: inline;
-      font-size: 24px;
-      margin: 0;
-    }
-
-    #result {
-      display: inline;
-      font-size: 24px;
-      font-weight: bold;
-      margin: 0;
-    }
+			.count-container {
+			white-space: nowrap;
+			}
+			
+			h2 {
+			display: inline;
+			font-size: 24px;
+			margin: 0;
+			}
+			
+			#result {
+			display: inline;
+			font-size: 24px;
+			font-weight: bold;
+			margin: 0;
+			}
 		</style>
 		
 		<script>
@@ -566,7 +566,7 @@
 					const result = await response.json();
 					
 					if (result.status === 'added') {
-										fetchRecordCount();											
+						fetchRecordCount();											
 						activateAnimation()
 						messageDiv.textContent = 'ਨਾਮ ਸ਼ਾਮਲ ਕੀਤਾ';
 						} else {
@@ -603,37 +603,39 @@
 				disableInput(false)
 				deactivateAnimation()
 			}
+			
+			function fetchRecordCount() {
+				let counter = 1000; // Initialize dummy counter
+				const resultDiv = document.getElementById('result');
+				// Start the dummy counter
+				const dummyCounter = setInterval(() => {
+				    const randomIncrement = Math.floor(Math.random() * (95 - 85 + 1)) + 85; // Random number between 85 and 95
+    counter += randomIncrement; 
 
-		   function fetchRecordCount() {
-		     let counter = 1000; // Initialize dummy counter
-  const resultDiv = document.getElementById('result');
-  // Start the dummy counter
-  const dummyCounter = setInterval(() => {
-    counter+= 93;
-    resultDiv.textContent = counter; // Update with dummy count
-  }, 100); // Increment every 100ms
-  
-				  // Replace with your script URL
-				  const url = 'https://script.google.com/macros/s/AKfycbwqgiJ_4sk24AxGPTQqcQtlTydEXlOfDIYJ8uVmb4-LHgdfA4XWHaPjNc2475g0fbFK/exec?action=getRecordCount';
-				  
-				  fetch(url)
-					.then(response => response.json())
-					.then(data => {
-					  if (data.status === "success") {
-					  clearInterval(dummyCounter);
+					resultDiv.textContent = counter; // Update with dummy count
+				}, 100); // Increment every 100ms
+				
+				// Replace with your script URL
+				const url = 'https://script.google.com/macros/s/AKfycbwqgiJ_4sk24AxGPTQqcQtlTydEXlOfDIYJ8uVmb4-LHgdfA4XWHaPjNc2475g0fbFK/exec?action=getRecordCount';
+				
+				fetch(url)
+				.then(response => response.json())
+				.then(data => {
+					if (data.status === "success") {
+						clearInterval(dummyCounter);
 						document.getElementById("result").innerHTML = data.count;
-					  } else {
-					  clearInterval(dummyCounter);
+						} else {
+						clearInterval(dummyCounter);
 						document.getElementById("result").innerHTML = "Error: " + data.error;
-					  }
-					})
-					.catch(error => {
+					}
+				})
+				.catch(error => {
 					clearInterval(dummyCounter);
-					  document.getElementById("result").innerHTML = "Error fetching record count";
-					  console.error("Error fetching data:", error);
-					});
-				}
-
+					document.getElementById("result").innerHTML = "Error fetching record count";
+					console.error("Error fetching data:", error);
+				});
+			}
+			
 			window.onload = function() {
 				fetchRecordCount();
 			}
@@ -706,10 +708,10 @@
 			👶🍼👼
 		</div>
 		
-	<div class="count-container">
-    <br><h2>Total - </h2>
-    <div id="result">0</div>
-	</div>
+		<div class="count-container">
+			<br><h2>Total - </h2>
+			<div id="result">0</div>
+		</div>
 		
 		<div class="linecontainer">
 			<div class="line"></div>
@@ -755,6 +757,6 @@
 			aboutclosePopupButton.addEventListener('click', function() {
 				aboutpopupOverlay.style.display = 'none';
 			});
-  </script>
+		</script>
 	</body>
 </html>				
