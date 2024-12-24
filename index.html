@@ -46,6 +46,7 @@
             text-decoration: none;
             font-size: 1.5em;
             color: blue;
+			
 			}
 			
 			.search-container {
@@ -357,6 +358,20 @@
 			font-weight: bold;
 			margin: 0;
 			}
+			
+			.blink {
+  animation: blink-animation 1s infinite;
+
+}
+
+@keyframes blink-animation {
+  0%, 100% {
+    opacity: 1; /* Fully visible at the start and end */
+  }
+  50% {
+    opacity: 0; /* Invisible at the midpoint */
+  }
+}
 		</style>
 		
 		<script>
@@ -497,6 +512,25 @@
 				}
 			}
 			
+
+ function generateBeep() {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator(); // Create an oscillator node
+    const gainNode = audioContext.createGain(); // Create a gain node for volume control
+
+    oscillator.type = 'sine'; // Set waveform type: 'sine', 'square', 'sawtooth', 'triangle'
+    oscillator.frequency.setValueAtTime(800, audioContext.currentTime); // Frequency in Hz (e.g., 440Hz for "A" note)
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Volume control (0.1 = 10% volume)
+
+    oscillator.connect(gainNode); // Connect oscillator to gain node
+    gainNode.connect(audioContext.destination); // Connect gain node to audio output (speakers)
+
+    oscillator.start(); // Start the sound
+    setTimeout(() => {
+      oscillator.stop(); // Stop the sound after 300ms
+      audioContext.close(); // Close the audio context
+    }, 300); // Duration of beep in milliseconds
+  }
 			
 			function showAddDialog(name) {
 				const addDialog = document.getElementById('addDialog');
@@ -507,6 +541,7 @@
 					closePopup();
 					enableAnimation();
 					await addNameToSheet(name);
+					generateBeep();
 					showMessage('✅ ਨਾਮ ਸ਼ਾਮਲ ਕੀਤਾ');			
 					enableInput();
 				};
@@ -609,7 +644,7 @@
 				const resultDiv = document.getElementById('result');
 				// Start the dummy counter
 				const dummyCounter = setInterval(() => {
-				    const randomIncrement = Math.floor(Math.random() * (95 - 85 + 1)) + 85; // Random number between 85 and 95
+				    const randomIncrement = Math.floor(Math.random() * (115 - 85 + 1)) + 85; // Random number between 85 and 95
     counter += randomIncrement; 
 
 					resultDiv.textContent = counter; // Update with dummy count
@@ -639,6 +674,10 @@
 			window.onload = function() {
 				fetchRecordCount();
 			}
+			
+			setTimeout(() => {
+  document.getElementById("result").classList.remove("blink");
+}, 3000); // Stops blinking after 3 seconds
 		</script>
 		
 	</head>
@@ -709,8 +748,8 @@
 		</div>
 		
 		<div class="count-container">
-			<br><h2>Total - </h2>
-			<div id="result">0</div>
+			<br><h2>ਕੁੱਲ ਨਾਂ - </h2>
+			<div id="result" class="blink">1000</div>
 		</div>
 		
 		<div class="linecontainer">
