@@ -519,7 +519,7 @@
     const gainNode = audioContext.createGain(); // Create a gain node for volume control
 
     oscillator.type = 'sine'; // Set waveform type: 'sine', 'square', 'sawtooth', 'triangle'
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime); // Frequency in Hz (e.g., 440Hz for "A" note)
+    oscillator.frequency.setValueAtTime(3000, audioContext.currentTime); // Frequency in Hz (e.g., 440Hz for "A" note)
     gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Volume control (0.1 = 10% volume)
 
     oscillator.connect(gainNode); // Connect oscillator to gain node
