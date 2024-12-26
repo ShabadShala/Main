@@ -2,13 +2,13 @@
 <html lang="pa">
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
 		
 		<title>Singh-Kaur</title>
 		
 		<style>
 			body {
-            background-color: #f5f5f5; /* Very light pink */
+            background-color: #f5f5f5;
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 50px;
@@ -360,18 +360,17 @@
 			}
 			
 			.blink {
-  animation: blink-animation 1s infinite;
+			animation: blink-animation 1s infinite;
+			}
 
-}
-
-@keyframes blink-animation {
-  0%, 100% {
-    opacity: 1; /* Fully visible at the start and end */
-  }
-  50% {
-    opacity: 0; /* Invisible at the midpoint */
-  }
-}
+			@keyframes blink-animation {
+			  0%, 100% {
+				opacity: 1; /* Fully visible at the start and end */
+			  }
+			  50% {
+				opacity: 0; /* Invisible at the midpoint */
+			  }
+			}
 		</style>
 		
 		<script>
@@ -512,25 +511,24 @@
 				}
 			}
 			
+			function generateBeep() {
+				const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+				const oscillator = audioContext.createOscillator(); // Create an oscillator node
+				const gainNode = audioContext.createGain(); // Create a gain node for volume control
 
- function generateBeep() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator(); // Create an oscillator node
-    const gainNode = audioContext.createGain(); // Create a gain node for volume control
+				oscillator.type = 'sine'; // Set waveform type: 'sine', 'square', 'sawtooth', 'triangle'
+				oscillator.frequency.setValueAtTime(3000, audioContext.currentTime); // Frequency in Hz (e.g., 440Hz for "A" note)
+				gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Volume control (0.1 = 10% volume)
 
-    oscillator.type = 'sine'; // Set waveform type: 'sine', 'square', 'sawtooth', 'triangle'
-    oscillator.frequency.setValueAtTime(3000, audioContext.currentTime); // Frequency in Hz (e.g., 440Hz for "A" note)
-    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Volume control (0.1 = 10% volume)
+				oscillator.connect(gainNode); // Connect oscillator to gain node
+				gainNode.connect(audioContext.destination); // Connect gain node to audio output (speakers)
 
-    oscillator.connect(gainNode); // Connect oscillator to gain node
-    gainNode.connect(audioContext.destination); // Connect gain node to audio output (speakers)
-
-    oscillator.start(); // Start the sound
-    setTimeout(() => {
-      oscillator.stop(); // Stop the sound after 300ms
-      audioContext.close(); // Close the audio context
-    }, 300); // Duration of beep in milliseconds
-  }
+				oscillator.start(); // Start the sound
+				setTimeout(() => {
+				  oscillator.stop(); // Stop the sound after 300ms
+				  audioContext.close(); // Close the audio context
+				}, 300); // Duration of beep in milliseconds
+			  }
 			
 			function showAddDialog(name) {
 				const addDialog = document.getElementById('addDialog');
@@ -590,8 +588,7 @@
 				messageDiv.textContent = message;
 				messageDiv.classList.add('found');
 			}
-			
-			
+						
 			async function addNameToSheet(name) {
 				const messageDiv = document.getElementById('message');
 				messageDiv.textContent = 'Adding';
@@ -676,8 +673,8 @@
 			}
 			
 			setTimeout(() => {
-  document.getElementById("result").classList.remove("blink");
-}, 3000); // Stops blinking after 3 seconds
+			  document.getElementById("result").classList.remove("blink");
+			}, 3000); // Stops blinking after 3 seconds
 		</script>
 		
 	</head>
@@ -705,7 +702,7 @@
 				<strong>ਨਾਮ ਲਿਖਣ ਬਾਰੇ</strong>
 				<ul class="instructions-list2"><br>
 					<li>ਗੁਰਮੁਖੀ ਪੰਜਾਬੀ ਦੇ ਪੈਂਤੀ ਅੱਖਰ ਤੇ ਲਗਾਂ-ਮਾਤਰਾਵਾਂ ਹੀ ਲਿਖੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ, ਖਾਲੀ ਥਾਂ ਜਾਂ ਕੋਈ ਵੀ ਹੋਰ ਚਿੰਨ੍ਹ ਟਾਈਪ ਨਹੀਂ ਹੋਵੇਗਾ</li>
-					<li>ਨਾਮ ਦਾ ਸਿੰਘ/ਕੌਰ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ ਹਿੱਸਾ ਲਿਖੋ, ਜੇ ਪਹਿਲੇ ਹਿੱਸੇ ਦੇ ਦੋ ਸ਼ਬਦ ਹਨ ਤਾਂ ਇਕੱਠੇ ਲਿਖੋ ਜਿਵੇਂ ਕਿ 'ਟਹਿਲ ਦੀਪ' ਨੂੰ 'ਟਹਿਲਦੀਪ'</li>
+					<li>ਨਾਮ ਦਾ ਸਿੰਘ/ਕੌਰ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ ਹਿੱਸਾ ਲਿਖੋ, ਜੇ ਪਹਿਲੇ ਹਿੱਸੇ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਹੈ ਤਾਂ ਸ਼ਬਦ ਇਕੱਠੇ ਲਿਖੋ ਜਿਵੇਂ ਕਿ 'ਟਹਿਲ ਦੀਪ' ਨੂੰ 'ਟਹਿਲਦੀਪ'</li>
 					<li>ਗੈਰ-ਪੰਜਾਬੀ ਭਾਸ਼ਾਵਾਂ ਦੇ ਓਹੀ ਨਾਮ ਦਰਜ ਕਰੋ ਜੋ ਪੰਜਾਬੀ ਵਿੱਚ ਜ਼ਿਆਦਾ ਪ੍ਰਚਲਿਤ ਹੋ ਚੁੱਕੇ ਹਨ</li>
 					<li>ਸਹੀ ਪੰਜਾਬੀ ਟਾਈਪਿੰਗ ਕਰਨ ਬਾਰੇ ਸ਼ਬਦਸ਼ਾਲਾ ਦਾ ਉਪ-ਚੈਨਲ "<strong>Punjabi Typing/Fonts</strong>" ਦੇਖੋ</li>
 				</ul>
