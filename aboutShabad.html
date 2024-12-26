@@ -1,166 +1,151 @@
 <!DOCTYPE html>
 <html lang="pa">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ਸ਼ਬਦਸ਼ਾਲਾ ਬਾਰੇ</title>
-    <style>
-        body {
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ਸ਼ਬਦਸ਼ਾਲਾ ਬਾਰੇ</title>
+        <style>
+            body {
             font-family: 'Noto Sans Gurmukhi', Arial, sans-serif;
             background-color: #f5f5f5;
             color: #333;
-            margin: 10px;
-            padding: 10px;
+            margin: 0;
+            padding: 0;
             line-height: 1.6;
             border: 10px solid #4CAF50;
             border-radius: 15px;
-        }
-        
-        .container {
+            }
+            
+            .container {
             max-width: 1000px;
             margin: 0 auto; /* Centers the content */
             padding: 10px;
-        }
-
-        header {
-            position: absolute;
-            top: 22px;
-            left: 25px;
-            z-index: 1000;
+            }
+            
+            header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             padding: 0;
-        }
-
-        .home-link {
-            text-decoration: none;
-            color: black;
-            font-size: 16px;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .home-link:hover {
+            }
+            
+            .home-link {
+            display: inline-block;
+            }
+            
+            .home-link:hover {
             background-color: #45a049;
-        }
-
-        .arrow-image {
+            }
+            
+            .arrow-image {
             width: 30px;
             height: 30px;
             transition: transform 0.2s ease;
-        }
-        .arrow-image:hover {
+            }
+            .arrow-image:hover {
             transform: scale(1.1);
-        }
-
-        h1 {
+            }
+            
+            h1 {
             font-size: 24px;
             color: #4CAF50;
-            margin: 25px 20px 20px 20px;
+            margin: 5px 20px 5px 20px;
             text-align: center;
             padding: 0 10px;
-        }
-
-        p {
+            }
+            
+            p {
             font-size: 18px;
             color: #555;
             text-align: justify;
-            padding: 0 10px;
+            padding: 0 5px;
             text-indent: 30px;
-        }
-
-        .visit-buttons {
-            margin-top: 20px;
+            }
+            
+            .visit-buttons {
+            margin-top: 1px;
             text-align: center;
-        }
-
-        .visit-buttons a {
-            display: inline-block;
-            margin: 2px;
-            padding: 10px 5px;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .visit-buttons .facebook {
-            background-color: #4267B2;
-        }
-        .visit-buttons .email {
-            background-color: #FF9800;
-        }
-        .visit-buttons .telegram {
-            background-color: #0088CC;
-        }
-
-        /* Blinking animation for the + sign */
-        @keyframes blink {
+            }
+            
+            .visit-buttons {
+            display: flex;
+            gap: 10px;
+            }
+            
+            .visit-buttons a img {
+            width: 30px;
+            height: 30px;
+            }
+            
+            /* Blinking animation for the + sign */
+            @keyframes blink {
             0% { opacity: 1; }
             50% { opacity: 0; }
             100% { opacity: 1; }
-        }
-
-        #expandCollapseSymbol {
-            color: #FF5733;
-            animation: blink 1s infinite;
-       
-        }
-
-    </style>
-</head>
-<body>
-    <div class="container"> <!-- Container added here -->
-        <header>
-            <a href="index.html" class="home-link" title="Go back">
-                <img src="Arrow.png" alt="Back" class="arrow-image">
-            </a>
-        </header>
-
-        <h1>ਸ਼ਬਦਸ਼ਾਲਾ ਬਾਰੇ</h1>
-        <p>
-            ਡਿਜੀਟਲ ਯੁੱਗ ਵਿੱਚ ਪੰਜਾਬੀ ਕੋਸ਼ਕਾਰੀ ਦੇ ਕੰਮ ਵਿੱਚ ਪਈ ਖੜੋਤ ਨੂੰ ਦੂਰ ਕਰਨ ਲਈ 
-            ਸ਼ਬਦਸ਼ਾਲਾ ਵੱਲੋਂ ਪੰਜਾਬੀ ਕੋਸ਼ਕਾਰੀ ਦੇ ਕਈ ਤਰ੍ਹਾਂ ਦੇ ਕੰਮ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ ਜਿਵੇਂ 
-            ਕਿ ਪੁਰਾਣੇ ਸ਼ਬਦਕੋਸ਼ਾਂ ਨੂੰ ਨਵਿਆਉਣਾ, ਸੁਧਾਈ, ਨਵੇਂ ਸ਼ਬਦਕੋਸ਼ ਤੇ ਸ਼ਬਦਾਵਲੀਆਂ 
-            ਤਿਆਰ ਕਰਨਾ, ਸ਼ਬਦਾਂ 'ਤੇ ਅਧਾਰਤ ਸਿੱਖਿਆ ਸਮਗਰੀ, ਪੋਸਟਾਂ, ਕਿਤਾਬਾਂ ਵਗੈਰਾ 
-            ਅਤੇ ਪੰਜਾਬੀ ਦੀਆਂ ਹੋਰ ਡਿਜੀਟਲ ਤੇ ਆਨਲਾਈਨ ਲੋੜਾਂ ਦੀ ਪੂਰਤੀ ਲਈ ਯਤਨ।
-        </p>
-
-        <h2 onclick="toggleContent()" style="cursor: pointer; color: #4CAF50; text-align: center;">ਯੋਗਦਾਨ <span id="expandCollapseSymbol">ਦੇਖੋ</span></h2>
-
-        <div id="expandedContent" style="display: none; margin-left: 15px;">
-            <ul style="padding-left: 10px; margin-left: 0;">
-                <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਉੱਤੇ ਪੰਜਾਬ, ਪੰਜਾਬੀ, ਪੰਜਾਬੀਅਤ ਨੂੰ ਸਮਰਪਿਤ ਚੈਨਲ ਤੇ ਪੇਜ਼</li>
-                <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਐਪ ਟੈਲੀਗ੍ਰਾਮ ਲਈ 250 ਸਟਿੱਕਰ ਪੈਕਾਂ ਵਿੱਚ 15000 ਤੋਂ ਉੱਪਰ ਸਟਿੱਕਰ</li>
-                <li>ਟੈਲੀਗ੍ਰਾਮ ਐਂਡਰਾਇਡ ਐਪ ਦੇ ਕਰੀਬ 7500 ਸਟਰਿੰਗਾਂ ਦਾ ਸ਼ੁੱਧ ਗੁਰਮੁਖੀ ਪੰਜਾਬੀ ਅਨੁਵਾਦ</li>
-                <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਸ਼ਬਦਾਵਲੀ (ਅੰਗਰੇਜ਼ੀ ਤੋਂ ਪੰਜਾਬੀ) PDF</li>
-                <li>ਪੰਜਾਬ ਦੇ ਪਿੰਡਾਂ-ਸ਼ਹਿਰਾਂ ਦੇ ਨਾਵਾਂ ਦਾ ਕੋਸ਼ PDF</li>
-            </ul>
-        </div>
-
-        <script>
-            function toggleContent() {
-                var content = document.getElementById("expandedContent");
-                var symbol = document.getElementById("expandCollapseSymbol");
-
-                if (content.style.display === "none") {
-                    content.style.display = "block";
-                    symbol.textContent = "−";  // Change to collapse symbol
-                } else {
-                    content.style.display = "none";
-                    symbol.textContent = "+";  // Change to expand symbol
-                }
             }
-        </script>
-
-        <div class="visit-buttons">
-            <a href="https://t.me/Shabadshala/101" target="_blank" title="Visit Telegram">
-                <img src="telegram.png" alt="Telegram" style="width: 30px; height: 30px;">
-            </a>
-            <a href="https://www.facebook.com/Shabadshala" target="_blank" title="Visit Facebook">
-                <img src="Facebook.png" alt="Facebook" style="width: 30px; height: 30px;">
-            </a>
-            <a href="mailto:ShabadMail@gmail.com" target="_blank" title="Contact us">
-                <img src="email.png" alt="Contact" style="width: 30px; height: 30px;">
-            </a>
-        </div>
-    </div> <!-- End of container -->
-</body>
+            
+            #expandCollapseSymbol {
+            color: #FF5733;
+            animation: blink 1s infinite;            
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="container"> <!-- Container added here -->
+            
+            <header>
+                <a href="index.html" class="home-link" title="Go back">
+                    <img src="Arrow.png" alt="Back" class="arrow-image">
+                </a>
+                <div class="visit-buttons">
+                    <a href="https://t.me/Shabadshala/101" target="_blank" title="Visit Telegram">
+                        <img src="telegram.png" alt="Telegram">
+                    </a>
+                    <a href="https://www.facebook.com/Shabadshala" target="_blank" title="Visit Facebook">
+                        <img src="facebook.png" alt="Facebook">
+                    </a>
+                    <a href="mailto:ShabadMail@gmail.com" target="_blank" title="Contact us">
+                        <img src="email.png" alt="Contact">
+                    </a>
+                </div>
+            </header>
+            
+            <h1>ਸ਼ਬਦਸ਼ਾਲਾ ਬਾਰੇ</h1>
+            <p>
+                ਡਿਜੀਟਲ ਯੁੱਗ ਦੀਆਂ ਲੋੜਾਂ ਮੁਤਾਬਕ ਪੰਜਾਬੀ ਕੋਸ਼ਕਾਰੀ ਦੇ ਕਈ ਤਰ੍ਹਾਂ ਦੇ ਕੰਮ ਕੀਤੇ ਜਾ ਰਹੇ ਹਨ ਜਿਵੇਂ 
+                ਕਿ ਪੁਰਾਣੇ ਸ਼ਬਦਕੋਸ਼ਾਂ ਨੂੰ ਨਵਿਆਉਣਾ, ਸੁਧਾਈ, ਨਵੇਂ ਸ਼ਬਦਕੋਸ਼ ਤੇ ਸ਼ਬਦਾਵਲੀਆਂ 
+                ਤਿਆਰ ਕਰਨਾ, ਸ਼ਬਦਾਂ 'ਤੇ ਅਧਾਰਤ ਸਿੱਖਿਆ ਸਮਗਰੀ, ਪੋਸਟਾਂ, ਕਿਤਾਬਾਂ ਵਗੈਰਾ 
+                ਅਤੇ ਪੰਜਾਬੀ ਦੀਆਂ ਹੋਰ ਡਿਜੀਟਲ ਤੇ ਆਨਲਾਈਨ ਲੋੜਾਂ ਦੀ ਪੂਰਤੀ ਲਈ ਯਤਨ।
+            </p>
+            
+            <h2 onclick="toggleContent()" style="cursor: pointer; color: #4CAF50; text-align: center;">ਯੋਗਦਾਨ <span id="expandCollapseSymbol">ਦੇਖੋ</span></h2>
+            
+            <div id="expandedContent" style="display: none; margin-left: 15px;">
+                <ul style="padding-left: 10px; margin-left: 0;">
+                    <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਉੱਤੇ ਪੰਜਾਬ, ਪੰਜਾਬੀ, ਪੰਜਾਬੀਅਤ ਨੂੰ ਸਮਰਪਿਤ ਚੈਨਲ/ਪੇਜ਼</li>
+                    <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਐਪ ਟੈਲੀਗ੍ਰਾਮ ਲਈ 250 ਸਟਿੱਕਰ ਪੈਕਾਂ ਵਿੱਚ 15000 ਤੋਂ ਉੱਪਰ ਸਟਿੱਕਰ</li>
+                    <li>ਟੈਲੀਗ੍ਰਾਮ ਐਂਡਰਾਇਡ ਐਪ ਦੇ 7500+ ਸਟਰਿੰਗਾਂ ਦਾ ਸ਼ੁੱਧ ਪੰਜਾਬੀ ਅਨੁਵਾਦ</li>
+                    <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਸ਼ਬਦਾਵਲੀ (ਅੰਗਰੇਜ਼ੀ ਤੋਂ ਪੰਜਾਬੀ) PDF</li>
+                    <li>ਪੰਜਾਬ ਦੇ ਪਿੰਡਾਂ-ਸ਼ਹਿਰਾਂ ਦੇ ਨਾਵਾਂ ਦਾ ਕੋਸ਼ PDF</li>
+                </ul>
+            </div>
+            
+            <script>
+                function toggleContent() {
+                    var content = document.getElementById("expandedContent");
+                    var symbol = document.getElementById("expandCollapseSymbol");
+                    
+                    if (content.style.display === "none") {
+                        content.style.display = "block";
+                        symbol.textContent = "−";  // Change to collapse symbol
+                        } else {
+                        content.style.display = "none";
+                        symbol.textContent = "+";  // Change to expand symbol
+                    }
+                }
+            </script>
+            
+        </div> <!-- End of container -->
+    </body>
 </html>
