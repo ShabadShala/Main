@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html> -->
 <html lang="pa">
 	<head>
 		<meta charset="UTF-8">
@@ -90,7 +90,7 @@
             transition: all 0.2s;
 			}
 			
-			.display-btn {
+			.search-btn {
             font-size: 1.2em;
             padding: 10px 10px;
             cursor: pointer;
@@ -102,7 +102,7 @@
 			max-width: 100%; 
 			}
 			
-			.display-btn:hover {
+			.search-btn:hover {
             background-color: #0056b3;
 			}
 			
@@ -120,38 +120,36 @@
 			white-space: nowrap; /* Prevent text from wrapping onto multiple lines */
 			text-align: center;
 			}
-			
+
 			.message.found {
             color: #007b00; /* Green for found */
 			}
-			
-			#helpButton {
+
+
+			/* Common Button Style */
+			.button {
 			position: absolute;
 			top: 10px;
-			right: 10px;
 			background-color: #4CAF50;
 			color: white;
 			border: none;
-			padding: 5px 10px;
 			font-size: 16px;
 			cursor: pointer;
 			border-radius: 5px;
 			}
 			
 			#aboutButton {
-			position: absolute;
-			top: 10px;
+			padding: 5px 7px; /* Default padding */
 			left: 10px;
-			background-color: #4CAF50;
-			color: white;
-			border: none;
-			padding: 5px 8px;
-			font-size: 16px;
-			cursor: pointer;
-			border-radius: 5px;
 			}
 			
-			#popupOverlay, #aboutpopupOverlay {
+			#helpButton {
+			padding: 5px 10px; /* Default padding */
+			right: 10px;
+			}
+					  
+			/* Styles for Overlay */
+			#helppopupOverlay, #aboutpopupOverlay {
 			display: none;
 			position: fixed;
 			top: 0;
@@ -163,7 +161,7 @@
 			}
 			
 			/* Style for the Popup content */
-			#popupOverlay > div, #aboutpopupOverlay > div {
+			#helppopupOverlay > div, #aboutpopupOverlay > div {
 			position: absolute;
 			top: 50%;
 			left: 50%;
@@ -185,47 +183,67 @@
 			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: shadow for a modern look */			
 			max-height: 80vh; 
 			overflow-y: auto;
+			}			
+			
+			#helpclosePopup, #aboutclosePopup {
+			display: block; /* Ensure it's displayed as a block element */
+			color: black; /* Black color for the cross */
+			border: none; /* Remove borders */
+			cursor: pointer; /* Make it clickable */
+			font-size: 24px; /* Larger font size for visibility */
+			margin: 0; /* Remove default margin */
+			padding: 0; /* Remove any padding */			
+			/* Make the background transparent */
+			background: transparent; /* Ensure the background is transparent */
+			box-shadow: none; /* Remove any shadow that might appear around the button */
+			/* Positioning the button in the upper-right corner */
+			position: absolute; /* Position it relative to its parent */
+			top: 10px; /* 10px from the top */
+			right: 10px; /* 10px from the right */
+			width: 24px; /* Same as font-size to make it square */
+			height: 24px; /* Same as font-size to make it square */
+			text-align: center; /* Center the cross horizontally */
+			line-height: 24px; /* Align the cross vertically */
+			}
+			
+			#helpclosePopup::before, #aboutclosePopup::before {
+			content: '×'; /* Use the multiplication sign for a cross */
+			font-size: inherit; /* Inherit font size from the parent */
+			}
+			
+			.popup-heading {
+			font-size: 20px; /* Adjust size */
+			font-weight: bold;			
 			}
 			
 			.instructions-list {
 			padding-left: 0; /* Remove padding to align content with the left */
-			margin: 5px 0; /* Add space above and below the list */
 			text-align: justify; /* Justify the text */
 			list-style-type: none; /* Remove the bullets */
+			  margin-bottom: 5px;
 			}
 			
 			.instructions-list li {
 			position: relative; /* Explicitly define block context */
 			line-height: 1.4; /* Adjust line spacing */			
 			text-indent: 30px; /* Indent only the first line */
-			margin-bottom: 15px; /* Space between items */
 			}
 			
 			.instructions-list2 {
-			padding-left: 15px; /* Adjust the left padding for bullets */
-			list-style-type: disc; /* Ensure bullets appear */
-			margin: 5px 0; /* Add space above and below the list */
+			padding-left: 10px; /* Adjust the left padding for bullets */
 			text-align: left;
+			list-style-type: disc; /* Ensure bullets appear */
+			margin-bottom: 5px;
 			}
 			
 			.instructions-list2 li {
 			margin-bottom: 5px; /* Add space between list items */
 			line-height: 1.4;
-}
-			
-			/* Style for the OK button inside the popup */
-			#closePopup, #aboutclosePopup {
-			display: block; /* Make the button a block element */
-			margin: 20px auto; /* Center the button horizontally and add spacing */
-			background-color: #f44336;
-			color: white;
-			padding: 10px 20px;
-			border: none;
-			cursor: pointer;
-			border-radius: 10px;
-			font-size: 16px;
-			margin-bottom: 0;
 			}
+			
+			
+			
+			
 			
 			#addDialog {
 			display: none;
@@ -362,15 +380,15 @@
 			.blink {
 			animation: blink-animation 1s infinite;
 			}
-
+			
 			@keyframes blink-animation {
-			  0%, 100% {
-				opacity: 1; /* Fully visible at the start and end */
-			  }
-			  50% {
-				opacity: 0; /* Invisible at the midpoint */
-			  }
+			0%, 100% {
+			opacity: 1; /* Fully visible at the start and end */
 			}
+			50% {
+			opacity: 0; /* Invisible at the midpoint */
+			}
+			}		  
 		</style>
 		
 		<script>
@@ -412,7 +430,7 @@
 			
 			document.addEventListener("DOMContentLoaded", function() {
 				const input = document.querySelector('input[type="text"]');
-				const searchBtn = document.querySelector('.display-btn');
+				const searchBtn = document.querySelector('.search-btn');
 				
 				// Disable the search button on page load if the input is empty
 				if (input.value.trim() === '') {
@@ -436,7 +454,7 @@
 			function disableInput(disableAll = true) {
 				const input = document.querySelector('input[type="text"]');
 				const clearBtn = input.nextElementSibling; // Cross button
-				const searchBtn = document.querySelector('.display-btn');
+				const searchBtn = document.querySelector('.search-btn');
 				
 				if (disableAll) {
 					input.disabled = true;  // Disable the text box
@@ -450,7 +468,7 @@
 			function enableInput(enableAll = true) {
 				const input = document.querySelector('input[type="text"]');
 				const clearBtn = input.nextElementSibling; // Cross button
-				const searchBtn = document.querySelector('.display-btn');
+				const searchBtn = document.querySelector('.search-btn');
 				
 				if (enableAll) {
 					input.disabled = false;  // Enable the text box
@@ -515,20 +533,20 @@
 				const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 				const oscillator = audioContext.createOscillator(); // Create an oscillator node
 				const gainNode = audioContext.createGain(); // Create a gain node for volume control
-
+				
 				oscillator.type = 'sine'; // Set waveform type: 'sine', 'square', 'sawtooth', 'triangle'
 				oscillator.frequency.setValueAtTime(3000, audioContext.currentTime); // Frequency in Hz (e.g., 440Hz for "A" note)
 				gainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Volume control (0.1 = 10% volume)
-
+				
 				oscillator.connect(gainNode); // Connect oscillator to gain node
 				gainNode.connect(audioContext.destination); // Connect gain node to audio output (speakers)
-
+				
 				oscillator.start(); // Start the sound
 				setTimeout(() => {
-				  oscillator.stop(); // Stop the sound after 300ms
-				  audioContext.close(); // Close the audio context
+					oscillator.stop(); // Stop the sound after 300ms
+					audioContext.close(); // Close the audio context
 				}, 300); // Duration of beep in milliseconds
-			  }
+			}
 			
 			function showAddDialog(name) {
 				const addDialog = document.getElementById('addDialog');
@@ -536,7 +554,7 @@
 				
 				addDialog.querySelector('.add-btn').onclick = async function () {
 					disableInput();
-					closePopup();
+					helpclosePopup();
 					enableAnimation();
 					await addNameToSheet(name);
 					generateBeep();
@@ -551,7 +569,7 @@
 						statusMessageElement.innerHTML = ""; // Ensure the message is cleared
 					}
 					// Close the popup
-					closePopup();
+					helpclosePopup();
 					showMessage('');
 				};
 				
@@ -559,7 +577,7 @@
 				overlay.style.display = 'block';
 			}
 			
-			function closePopup() {
+			function helpclosePopup() {
 				const addDialog = document.getElementById('addDialog');
 				const overlay = document.getElementById('overlay');
 				
@@ -573,6 +591,8 @@
 				
 				addDialog.style.display = 'none';
 				overlay.style.display = 'none';
+				
+				document.body.classList.remove('modal-open');
 			}
 			
 			function enableAnimation() {
@@ -588,7 +608,7 @@
 				messageDiv.textContent = message;
 				messageDiv.classList.add('found');
 			}
-						
+			
 			async function addNameToSheet(name) {
 				const messageDiv = document.getElementById('message');
 				messageDiv.textContent = 'Adding';
@@ -642,8 +662,8 @@
 				// Start the dummy counter
 				const dummyCounter = setInterval(() => {
 				    const randomIncrement = Math.floor(Math.random() * (115 - 85 + 1)) + 85; // Random number between 85 and 95
-    counter += randomIncrement; 
-
+					counter += randomIncrement; 
+					
 					resultDiv.textContent = counter; // Update with dummy count
 				}, 100); // Increment every 100ms
 				
@@ -673,7 +693,7 @@
 			}
 			
 			setTimeout(() => {
-			  document.getElementById("result").classList.remove("blink");
+				document.getElementById("result").classList.remove("blink");
 			}, 3000); // Stops blinking after 3 seconds
 		</script>
 		
@@ -682,31 +702,31 @@
 	<body>
 		
 		<!-- About Button -->
-		<button id="aboutButton">About</button>
+		<button id="aboutButton" class="button">About</button>
 		<!-- Popup Overlay -->
 		<div id="aboutpopupOverlay">
 			<div class="popup-container">
-				<strong>ਸਿੰਘ-ਕੌਰ ਬਾਰੇ</strong>
-				<ul class="instructions-list"><br>
+				<strong class="popup-heading">ਸਿੰਘ-ਕੌਰ ਬਾਰੇ</strong>
+				<ul class="instructions-list">
 					<li>ਇਹ ਐਪ ਪੰਜਾਬੀ ਕੋਸ਼ਕਾਰੀ ਦੇ ਇੱਕ ਵੱਡੇ ਪ੍ਰੋਜੈਕਟ ਦੇ ਹਿੱਸੇ ਵਜੋਂ, ਅਜਿਹੇ ਪੰਜਾਬੀ ਨਾਮ ਇਕੱਠੇ ਕਰਨ ਲਈ ਬਣਾਈ ਗਈ ਹੈ, ਜਿਨ੍ਹਾਂ ਦੇ ਪਿੱਛੇ ਸਿੰਘ ਜਾਂ ਕੌਰ ਲੱਗਦਾ ਹੋਵੇ। ਐਪ ਰਾਹੀਂ ਤੁਸੀਂ ਕੋਈ ਵੀ ਨਾਮ ਚੈੱਕ ਕਰ ਸਕਦੇ ਹੋ, ਜੇ ਨਹੀਂ ਮਿਲਿਆ ਤਾਂ ਦਰਜ ਕਰ ਸਕਦੇ ਹੋ।</li>
 				</ul>
-				<button id="aboutclosePopup">OK</button>
+				<button id="aboutclosePopup"></button>
 			</div>
 		</div>
 		
 		<!-- Help Button -->
-		<button id="helpButton">Help</button>
+		<button id="helpButton" class="button">Help</button>
 		<!-- Popup Overlay -->
-		<div id="popupOverlay">
+		<div id="helppopupOverlay">
 			<div class="popup-container">
-				<strong>ਨਾਮ ਲਿਖਣ ਬਾਰੇ</strong>
-				<ul class="instructions-list2"><br>
+				<strong class="popup-heading">ਨਾਮ ਲਿਖਣ ਬਾਰੇ</strong>
+				<ul class="instructions-list2">
 					<li>ਗੁਰਮੁਖੀ ਪੰਜਾਬੀ ਦੇ ਪੈਂਤੀ ਅੱਖਰ ਤੇ ਲਗਾਂ-ਮਾਤਰਾਵਾਂ ਹੀ ਲਿਖੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ, ਖਾਲੀ ਥਾਂ ਜਾਂ ਕੋਈ ਵੀ ਹੋਰ ਚਿੰਨ੍ਹ ਟਾਈਪ ਨਹੀਂ ਹੋਵੇਗਾ</li>
 					<li>ਨਾਮ ਦਾ ਸਿੰਘ/ਕੌਰ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ ਹਿੱਸਾ ਲਿਖੋ, ਜੇ ਪਹਿਲੇ ਹਿੱਸੇ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਹੈ ਤਾਂ ਸ਼ਬਦ ਇਕੱਠੇ ਲਿਖੋ ਜਿਵੇਂ ਕਿ 'ਟਹਿਲ ਦੀਪ' ਨੂੰ 'ਟਹਿਲਦੀਪ'</li>
 					<li>ਗੈਰ-ਪੰਜਾਬੀ ਭਾਸ਼ਾਵਾਂ ਦੇ ਓਹੀ ਨਾਮ ਦਰਜ ਕਰੋ ਜੋ ਪੰਜਾਬੀ ਵਿੱਚ ਜ਼ਿਆਦਾ ਪ੍ਰਚਲਿਤ ਹੋ ਚੁੱਕੇ ਹਨ</li>
 					<li>ਸਹੀ ਪੰਜਾਬੀ ਟਾਈਪਿੰਗ ਕਰਨ ਬਾਰੇ ਸ਼ਬਦਸ਼ਾਲਾ ਦਾ ਉਪ-ਚੈਨਲ "<strong>Punjabi Typing/Fonts</strong>" ਦੇਖੋ</li>
 				</ul>
-				<button id="closePopup">OK</button>
+				<button id="helpclosePopup"></button>
 			</div>
 		</div>
 		
@@ -725,7 +745,7 @@
 				placeholder="ਨਾਮ ਲਿਖੋ">
 				<button class="clear-btn" onclick="clearInput(this.previousElementSibling)">&times;</button>
 			</div>
-			<button class="display-btn" onclick="searchName() ; deactivateAnimation()">Check</button>
+			<button class="search-btn" onclick="searchName() ; deactivateAnimation()">Check</button>
 		</div>
 		
 		<div class="loading" id="loading"></div>
@@ -764,27 +784,39 @@
 		</div>
 		
 		<script>
-			// Get references to the button and popup elements
+			// Get references to the button and popup elements for the Help popup
 			const helpButton = document.getElementById('helpButton');
-			const popupOverlay = document.getElementById('popupOverlay');
-			const closePopupButton = document.getElementById('closePopup');
+			const helppopupOverlay = document.getElementById('helppopupOverlay');
+			const closePopupButton = document.getElementById('helpclosePopup');
 			
 			// Show the popup when the help button is clicked
 			helpButton.addEventListener('click', function() {
-				popupOverlay.style.display = 'block';
+				helppopupOverlay.style.display = 'block';
 			});
 			
 			// Close the popup when the close button is clicked
 			closePopupButton.addEventListener('click', function() {
-				popupOverlay.style.display = 'none';
+				helppopupOverlay.style.display = 'none';
 			});
 			
-			// Get references to the button and popup elements
+			// Close the popup when the Esc key is pressed
+			document.addEventListener('keydown', function(event) {
+				if (event.key === 'Escape') {  // Check if the Esc key was pressed
+					helppopupOverlay.style.display = 'none';
+				}
+			});
+			
+			// Close the popup when the Back button is pressed on touch devices
+			window.addEventListener('popstate', function(event) {
+				helppopupOverlay.style.display = 'none';
+			});
+			
+			// Get references to the button and popup elements for the About popup
 			const aboutButton = document.getElementById('aboutButton');
 			const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
 			const aboutclosePopupButton = document.getElementById('aboutclosePopup');
 			
-			// Show the popup when the help button is clicked
+			// Show the popup when the about button is clicked
 			aboutButton.addEventListener('click', function() {
 				aboutpopupOverlay.style.display = 'block';
 			});
@@ -793,6 +825,19 @@
 			aboutclosePopupButton.addEventListener('click', function() {
 				aboutpopupOverlay.style.display = 'none';
 			});
+			
+			// Close the popup when the Esc key is pressed for About popup
+			document.addEventListener('keydown', function(event) {
+				if (event.key === 'Escape') {  // Check if the Esc key was pressed
+					aboutpopupOverlay.style.display = 'none';
+				}
+			});
+			
+			// Close the About popup when the Back button is pressed on touch devices
+			window.addEventListener('popstate', function(event) {
+				aboutpopupOverlay.style.display = 'none';
+			});
+			
 		</script>
 	</body>
 </html>				
