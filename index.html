@@ -785,59 +785,60 @@
 		
 		<script>
 			// Get references to the button and popup elements for the Help popup
-			const helpButton = document.getElementById('helpButton');
-			const helppopupOverlay = document.getElementById('helppopupOverlay');
-			const closePopupButton = document.getElementById('helpclosePopup');
-			
-			// Show the popup when the help button is clicked
-			helpButton.addEventListener('click', function() {
-				helppopupOverlay.style.display = 'block';
-			});
-			
-			// Close the popup when the close button is clicked
-			closePopupButton.addEventListener('click', function() {
-				helppopupOverlay.style.display = 'none';
-			});
-			
-			// Close the popup when the Esc key is pressed
-			document.addEventListener('keydown', function(event) {
-				if (event.key === 'Escape') {  // Check if the Esc key was pressed
-					helppopupOverlay.style.display = 'none';
-				}
-			});
-			
-			// Close the popup when the Back button is pressed on touch devices
-			window.addEventListener('popstate', function(event) {
-				helppopupOverlay.style.display = 'none';
-			});
-			
-			// Get references to the button and popup elements for the About popup
-			const aboutButton = document.getElementById('aboutButton');
-			const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
-			const aboutclosePopupButton = document.getElementById('aboutclosePopup');
-			
-			// Show the popup when the about button is clicked
-			aboutButton.addEventListener('click', function() {
-				aboutpopupOverlay.style.display = 'block';
-			});
-			
-			// Close the popup when the close button is clicked
-			aboutclosePopupButton.addEventListener('click', function() {
-				aboutpopupOverlay.style.display = 'none';
-			});
-			
-			// Close the popup when the Esc key is pressed for About popup
-			document.addEventListener('keydown', function(event) {
-				if (event.key === 'Escape') {  // Check if the Esc key was pressed
-					aboutpopupOverlay.style.display = 'none';
-				}
-			});
-			
-			// Close the About popup when the Back button is pressed on touch devices
-			window.addEventListener('popstate', function(event) {
-				aboutpopupOverlay.style.display = 'none';
-			});
-			
+const helpButton = document.getElementById('helpButton');
+const helppopupOverlay = document.getElementById('helppopupOverlay');
+const closePopupButton = document.getElementById('helpclosePopup');
+
+// Show the popup when the help button is clicked
+helpButton.addEventListener('click', function () {
+    helppopupOverlay.style.display = 'block';
+    history.pushState({ popup: 'help' }, '', '#help-popup'); // Add history state
+});
+
+// Close the popup when the close button is clicked
+closePopupButton.addEventListener('click', function () {
+    helppopupOverlay.style.display = 'none';
+    history.back(); // Go back to the previous history state
+});
+
+// Close the popup when the Esc key is pressed
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') { // Check if the Esc key was pressed
+        helppopupOverlay.style.display = 'none';
+        history.back(); // Go back to the previous history state
+    }
+});
+
+// Get references to the button and popup elements for the About popup
+const aboutButton = document.getElementById('aboutButton');
+const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
+const aboutclosePopupButton = document.getElementById('aboutclosePopup');
+
+// Show the popup when the about button is clicked
+aboutButton.addEventListener('click', function () {
+    aboutpopupOverlay.style.display = 'block';
+    history.pushState({ popup: 'about' }, '', '#about-popup'); // Add history state
+});
+
+// Close the popup when the close button is clicked
+aboutclosePopupButton.addEventListener('click', function () {
+    aboutpopupOverlay.style.display = 'none';
+    history.back(); // Go back to the previous history state
+});
+
+// Handle the Back button (popstate event)
+window.addEventListener('popstate', function (event) {
+    // Close the corresponding popup based on the state
+    if (event.state && event.state.popup === 'help') {
+        helppopupOverlay.style.display = 'none';
+    } else if (event.state && event.state.popup === 'about') {
+        aboutpopupOverlay.style.display = 'none';
+    } else {
+        // Ensure all popups are closed
+        helppopupOverlay.style.display = 'none';
+        aboutpopupOverlay.style.display = 'none';
+    }
+});			
 		</script>
 	</body>
 </html>				
