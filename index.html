@@ -120,12 +120,12 @@
 			white-space: nowrap; /* Prevent text from wrapping onto multiple lines */
 			text-align: center;
 			}
-
+			
 			.message.found {
             color: #007b00; /* Green for found */
 			}
-
-
+			
+			
 			/* Common Button Style */
 			.button {
 			position: absolute;
@@ -147,7 +147,7 @@
 			padding: 5px 10px; /* Default padding */
 			right: 10px;
 			}
-					  
+			
 			/* Styles for Overlay */
 			#helppopupOverlay, #aboutpopupOverlay {
 			display: none;
@@ -220,7 +220,7 @@
 			padding-left: 0; /* Remove padding to align content with the left */
 			text-align: justify; /* Justify the text */
 			list-style-type: none; /* Remove the bullets */
-			  margin-bottom: 5px;
+			margin-bottom: 5px;
 			}
 			
 			.instructions-list li {
@@ -325,8 +325,7 @@
 			font-size: 50px;
 			z-index: 1000;
 			transform: none; /* No translation, place as per normal flow */
-			margin-top: 40px;
-			
+			margin-top: 40px;			
 			white-space: nowrap; /* Prevent text from wrapping onto multiple lines */
 			text-align: center;
 			}
@@ -657,15 +656,21 @@
 			}
 			
 			function fetchRecordCount() {
-				let counter = 1000; // Initialize dummy counter
+				let counter = Math.floor(Math.random() * (1100 - 900 + 1)) + 900;
 				const resultDiv = document.getElementById('result');
-				// Start the dummy counter
 				const dummyCounter = setInterval(() => {
-				    const randomIncrement = Math.floor(Math.random() * (115 - 85 + 1)) + 85; // Random number between 85 and 95
-					counter += randomIncrement; 
-					
+					let randomIncrement;
+					if (counter >= 10000) {
+						// Generate a random number between 10 and 15
+						randomIncrement = Math.floor(Math.random() * (15 - 10 + 1)) + 10;
+						} else {
+						// Generate a random number between 85 and 115
+						randomIncrement = Math.floor(Math.random() * (115 - 85 + 1)) + 85;
+					}
+					counter += randomIncrement;
 					resultDiv.textContent = counter; // Update with dummy count
 				}, 100); // Increment every 100ms
+				
 				
 				// Replace with your script URL
 				const url = 'https://script.google.com/macros/s/AKfycbwqgiJ_4sk24AxGPTQqcQtlTydEXlOfDIYJ8uVmb4-LHgdfA4XWHaPjNc2475g0fbFK/exec?action=getRecordCount';
@@ -721,10 +726,10 @@
 			<div class="popup-container">
 				<strong class="popup-heading">ਨਾਮ ਲਿਖਣ ਬਾਰੇ</strong>
 				<ul class="instructions-list2">
-					<li>ਗੁਰਮੁਖੀ ਪੰਜਾਬੀ ਦੇ ਪੈਂਤੀ ਅੱਖਰ ਤੇ ਲਗਾਂ-ਮਾਤਰਾਵਾਂ ਹੀ ਲਿਖੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ, ਖਾਲੀ ਥਾਂ ਜਾਂ ਕੋਈ ਵੀ ਹੋਰ ਚਿੰਨ੍ਹ ਟਾਈਪ ਨਹੀਂ ਹੋਵੇਗਾ</li>
-					<li>ਨਾਮ ਦਾ ਸਿੰਘ/ਕੌਰ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ ਹਿੱਸਾ ਲਿਖੋ, ਜੇ ਪਹਿਲੇ ਹਿੱਸੇ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਹੈ ਤਾਂ ਸ਼ਬਦ ਇਕੱਠੇ ਲਿਖੋ ਜਿਵੇਂ ਕਿ 'ਟਹਿਲ ਦੀਪ' ਨੂੰ 'ਟਹਿਲਦੀਪ'</li>
+					<li>ਗੁਰਮੁਖੀ ਪੰਜਾਬੀ ਦੇ ਅੱਖਰ ਤੇ ਲਗਾਂ-ਮਾਤਰਾਵਾਂ ਹੀ ਲਿਖੀਆਂ ਜਾ ਸਕਦੀਆਂ ਹਨ, ਖਾਲੀ ਥਾਂ ਜਾਂ ਹੋਰ ਚਿੰਨ੍ਹ ਟਾਈਪ ਨਹੀਂ ਹੋਣਗੇ</li>
+					<li>ਨਾਮ ਦਾ ਸਿੰਘ/ਕੌਰ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ ਹਿੱਸਾ ਲਿਖੋ, ਜੇ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਹੈ ਤਾਂ ਸ਼ਬਦ ਇਕੱਠੇ ਲਿਖੋ ਜਿਵੇਂ ਕਿ 'ਟਹਿਲ ਦੀਪ' ਨੂੰ 'ਟਹਿਲਦੀਪ'</li>
 					<li>ਗੈਰ-ਪੰਜਾਬੀ ਭਾਸ਼ਾਵਾਂ ਦੇ ਓਹੀ ਨਾਮ ਦਰਜ ਕਰੋ ਜੋ ਪੰਜਾਬੀ ਵਿੱਚ ਜ਼ਿਆਦਾ ਪ੍ਰਚਲਿਤ ਹੋ ਚੁੱਕੇ ਹਨ</li>
-					<li>ਸਹੀ ਪੰਜਾਬੀ ਟਾਈਪਿੰਗ ਕਰਨ ਬਾਰੇ ਸ਼ਬਦਸ਼ਾਲਾ ਦਾ ਉਪ-ਚੈਨਲ "<strong>Punjabi Typing/Fonts</strong>" ਦੇਖੋ</li>
+					<li>ਸਹੀ ਪੰਜਾਬੀ ਟਾਈਪਿੰਗ ਲਈ ਸ਼ਬਦਸ਼ਾਲਾ ਦਾ ਚੈਨਲ "<strong>Punjabi Typing/Fonts</strong>" ਦੇਖੋ</li>
 				</ul>
 				<button id="helpclosePopup"></button>
 			</div>
@@ -838,7 +843,8 @@ window.addEventListener('popstate', function (event) {
         helppopupOverlay.style.display = 'none';
         aboutpopupOverlay.style.display = 'none';
     }
-});			
+});
+
 		</script>
 	</body>
 </html>				
