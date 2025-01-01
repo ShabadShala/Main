@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="refresh" content="600">
 		
 		<title>Singh-Kaur</title>
 		
@@ -660,7 +661,7 @@
 				const resultDiv = document.getElementById('result');
 				const dummyCounter = setInterval(() => {
 					let randomIncrement;
-					if (counter >= 7500) {
+					if (counter >= 10000) {
 						// Generate a random number between 10 and 15
 						randomIncrement = Math.floor(Math.random() * (15 - 10 + 1)) + 10;
 						} else {
@@ -787,63 +788,81 @@
 			<!-- hitwebcounter Code END -->
 		</div>
 		
-		<script>
-			// Get references to the button and popup elements for the Help popup
-const helpButton = document.getElementById('helpButton');
-const helppopupOverlay = document.getElementById('helppopupOverlay');
-const closePopupButton = document.getElementById('helpclosePopup');
+<script>
+    // Get references to the button and popup elements for the Help popup
+    const helpButton = document.getElementById('helpButton');
+    const helppopupOverlay = document.getElementById('helppopupOverlay');
+    const closePopupButton = document.getElementById('helpclosePopup');
+    const helppopupContent = helppopupOverlay.querySelector('.popup-content'); // Add content selector
 
-// Show the popup when the help button is clicked
-helpButton.addEventListener('click', function () {
-    helppopupOverlay.style.display = 'block';
-    history.pushState({ popup: 'help' }, '', '#help-popup'); // Add history state
-});
+    // Show the popup when the help button is clicked
+    helpButton.addEventListener('click', function () {
+        helppopupOverlay.style.display = 'block';
+        history.pushState({ popup: 'help' }, '', '#help-popup'); // Add history state
+    });
 
-// Close the popup when the close button is clicked
-closePopupButton.addEventListener('click', function () {
-    helppopupOverlay.style.display = 'none';
-    history.back(); // Go back to the previous history state
-});
-
-// Close the popup when the Esc key is pressed
-document.addEventListener('keydown', function (event) {
-    if (event.key === 'Escape') { // Check if the Esc key was pressed
+    // Close the popup when the close button is clicked
+    closePopupButton.addEventListener('click', function () {
         helppopupOverlay.style.display = 'none';
         history.back(); // Go back to the previous history state
-    }
-});
+    });
 
-// Get references to the button and popup elements for the About popup
-const aboutButton = document.getElementById('aboutButton');
-const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
-const aboutclosePopupButton = document.getElementById('aboutclosePopup');
+    // Close the popup when the Esc key is pressed
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') { // Check if the Esc key was pressed
+            helppopupOverlay.style.display = 'none';
+            history.back(); // Go back to the previous history state
+        }
+    });
 
-// Show the popup when the about button is clicked
-aboutButton.addEventListener('click', function () {
-    aboutpopupOverlay.style.display = 'block';
-    history.pushState({ popup: 'about' }, '', '#about-popup'); // Add history state
-});
+    // Close the popup when clicking outside the popup content
+    helppopupOverlay.addEventListener('click', function (event) {
+        if (event.target === helppopupOverlay) { // Ensure click is outside the content
+            helppopupOverlay.style.display = 'none';
+            history.back();
+        }
+    });
 
-// Close the popup when the close button is clicked
-aboutclosePopupButton.addEventListener('click', function () {
-    aboutpopupOverlay.style.display = 'none';
-    history.back(); // Go back to the previous history state
-});
+    // Get references to the button and popup elements for the About popup
+    const aboutButton = document.getElementById('aboutButton');
+    const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
+    const aboutclosePopupButton = document.getElementById('aboutclosePopup');
+    const aboutpopupContent = aboutpopupOverlay.querySelector('.popup-content'); // Add content selector
 
-// Handle the Back button (popstate event)
-window.addEventListener('popstate', function (event) {
-    // Close the corresponding popup based on the state
-    if (event.state && event.state.popup === 'help') {
-        helppopupOverlay.style.display = 'none';
-    } else if (event.state && event.state.popup === 'about') {
+    // Show the popup when the about button is clicked
+    aboutButton.addEventListener('click', function () {
+        aboutpopupOverlay.style.display = 'block';
+        history.pushState({ popup: 'about' }, '', '#about-popup'); // Add history state
+    });
+
+    // Close the popup when the close button is clicked
+    aboutclosePopupButton.addEventListener('click', function () {
         aboutpopupOverlay.style.display = 'none';
-    } else {
-        // Ensure all popups are closed
-        helppopupOverlay.style.display = 'none';
-        aboutpopupOverlay.style.display = 'none';
-    }
-});
+        history.back(); // Go back to the previous history state
+    });
 
-		</script>
+    // Close the popup when clicking outside the popup content
+    aboutpopupOverlay.addEventListener('click', function (event) {
+        if (event.target === aboutpopupOverlay) { // Ensure click is outside the content
+            aboutpopupOverlay.style.display = 'none';
+            history.back();
+        }
+    });
+
+    // Handle the Back button (popstate event)
+    window.addEventListener('popstate', function (event) {
+        // Close the corresponding popup based on the state
+        if (event.state && event.state.popup === 'help') {
+            helppopupOverlay.style.display = 'none';
+        } else if (event.state && event.state.popup === 'about') {
+            aboutpopupOverlay.style.display = 'none';
+        } else {
+            // Ensure all popups are closed
+            helppopupOverlay.style.display = 'none';
+            aboutpopupOverlay.style.display = 'none';
+        }
+    });
+</script>
+
 	</body>
 </html>				
