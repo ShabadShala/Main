@@ -478,56 +478,72 @@
 				searchBtn.classList.remove('no-hover');  // Enable the hover effect
 			}
 			
-			// Main search function
-			async function searchName() {
-				const input = document.querySelector('input[type="text"]');
-				const name = input.value.trim();
-				const outputDiv = document.getElementById('output');
-				const messageDiv = document.getElementById('message');
-				const loadingSpinner = document.getElementById('loading');  // Assuming the spinner has this ID
-				
-				// Check if the input is empty, disable accordingly
-				if (!name) {
-					disableInput(false);  // Disable only the search and hover button
-					return;  // Stop execution if input is empty
-					} else {
-					enableInput(false);  // Enable the search and hover button if input exists
-				}
-				
-				// Now, proceed with the search, disable all inputs
-				disableInput();  
-				messageDiv.textContent = 'Please wait';
-				messageDiv.classList.remove('found');
-				loadingSpinner.style.display = "block";
-				
-				try {
-					const response = await fetch(`https://script.google.com/macros/s/AKfycbwnpi-hedcyyroMJ6MoD0WId37gYKM0NSx1N1mWqUwwkbpq-iSDyccEerS_EertREw/exec?action=searchName&name=${encodeURIComponent(name)}`);
-					const result = await response.json();
-					loadingSpinner.style.display = "none";  // Hide loading spinner
-					
-					// Enable input after search completes
-					enableInput();
-					
-					// Handle the result based on the search status
-					if (result.status === 'found') {
-						messageDiv.textContent = '✅ ਨਾਮ ਮੌਜੂਦ ਹੈ';
-						disableInput(false);
-						messageDiv.style.fontSize = '22px';
-						
-						activateAnimation()
-						messageDiv.classList.add('found');
-						} else if (result.status === 'not_found') {
-						showAddDialog(name);
-						} else {
-						messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
-					}
-					} catch (error) {
-					enableInput();  // Ensure input is enabled even if an error occurs
-					loadingSpinner.style.display = "none";  // Hide the loading spinner in case of error
-					messageDiv.textContent = `ਗੜਬੜ (${error.message})`;
-					console.error('Error:', error);
-				}
-			}
+// Main search function
+async function searchName() {
+    const input = document.querySelector('input[type="text"]');
+    let name = input.value.trim(); // Use 'let' so we can modify the variable
+    const outputDiv = document.getElementById('output');
+    const messageDiv = document.getElementById('message');
+    const loadingSpinner = document.getElementById('loading'); // Assuming the spinner has this ID
+
+    // Replace characters for better data storage
+    const replacements = { 
+        'ਸ਼': 'ਸ਼',
+        'ਖ਼': 'ਖ਼', 	
+        'ਗ਼': 'ਗ਼', 
+        'ਜ਼': 'ਜ਼', 
+        'ਫ਼': 'ਫ਼', 
+        'ਲ਼': 'ਲ਼', 		
+    };
+
+    for (const [key, replacement] of Object.entries(replacements)) {
+        const regex = new RegExp(key, 'g'); // 'g' for global replacement
+        name = name.replace(regex, replacement);
+    }
+
+    // Check if the input is empty, disable accordingly
+    if (!name) {
+        disableInput(false); // Disable only the search and hover button
+        return; // Stop execution if input is empty
+    } else {
+        enableInput(false); // Enable the search and hover button if input exists
+    }
+
+    // Now, proceed with the search, disable all inputs
+    disableInput();  
+    messageDiv.textContent = 'Please wait';
+    messageDiv.classList.remove('found');
+    loadingSpinner.style.display = "block";
+
+    try {
+        const response = await fetch(`https://script.google.com/macros/s/AKfycbwnpi-hedcyyroMJ6MoD0WId37gYKM0NSx1N1mWqUwwkbpq-iSDyccEerS_EertREw/exec?action=searchName&name=${encodeURIComponent(name)}`);
+        const result = await response.json();
+        loadingSpinner.style.display = "none"; // Hide loading spinner
+        
+        // Enable input after search completes
+        enableInput();
+        
+        // Handle the result based on the search status
+        if (result.status === 'found') {
+            messageDiv.textContent = '✅ ਨਾਮ ਮੌਜੂਦ ਹੈ';
+            disableInput(false);
+            messageDiv.style.fontSize = '22px';
+            
+            activateAnimation();
+            messageDiv.classList.add('found');
+        } else if (result.status === 'not_found') {
+            showAddDialog(name);
+        } else {
+            messageDiv.textContent = `⚠️ ਗੜਬੜ (${result.error || 'ਅਣਜਾਣ ਗਲਤੀ'})`;
+        }
+    } catch (error) {
+        enableInput(); // Ensure input is enabled even if an error occurs
+        loadingSpinner.style.display = "none"; // Hide the loading spinner in case of error
+        messageDiv.textContent = `ਗੜਬੜ (${error.message})`;
+        console.error('Error:', error);
+    }
+}
+
 			
 			function generateBeep() {
 				const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -780,7 +796,7 @@
 		<a href="aboutShabad.html">ਸ਼ਬਦਸ਼ਾਲਾ</a>
 		
 		<div style="display: flex; align-items: center; justify-content: center;">
-			<h3 style="margin-right: 10px;">Visitor </h3>
+			<h3 style="margin-right: 10px;">Visitor no.</h3>
 			<!-- hitwebcounter Code START -->
 			<a href="https://www.hitwebcounter.com" target="_blank">
 				<img src="https://hitwebcounter.com/counter/counter.php?page=18035707&style=0006&nbdigits=5&type=page&initCount=0" title="Counter Widget" alt="Visit counter For Websites" border="" />
@@ -788,81 +804,81 @@
 			<!-- hitwebcounter Code END -->
 		</div>
 		
-<script>
-    // Get references to the button and popup elements for the Help popup
-    const helpButton = document.getElementById('helpButton');
-    const helppopupOverlay = document.getElementById('helppopupOverlay');
-    const closePopupButton = document.getElementById('helpclosePopup');
-    const helppopupContent = helppopupOverlay.querySelector('.popup-content'); // Add content selector
-
-    // Show the popup when the help button is clicked
-    helpButton.addEventListener('click', function () {
-        helppopupOverlay.style.display = 'block';
-        history.pushState({ popup: 'help' }, '', '#help-popup'); // Add history state
-    });
-
-    // Close the popup when the close button is clicked
-    closePopupButton.addEventListener('click', function () {
-        helppopupOverlay.style.display = 'none';
-        history.back(); // Go back to the previous history state
-    });
-
-    // Close the popup when the Esc key is pressed
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') { // Check if the Esc key was pressed
-            helppopupOverlay.style.display = 'none';
-            history.back(); // Go back to the previous history state
-        }
-    });
-
-    // Close the popup when clicking outside the popup content
-    helppopupOverlay.addEventListener('click', function (event) {
-        if (event.target === helppopupOverlay) { // Ensure click is outside the content
-            helppopupOverlay.style.display = 'none';
-            history.back();
-        }
-    });
-
-    // Get references to the button and popup elements for the About popup
-    const aboutButton = document.getElementById('aboutButton');
-    const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
-    const aboutclosePopupButton = document.getElementById('aboutclosePopup');
-    const aboutpopupContent = aboutpopupOverlay.querySelector('.popup-content'); // Add content selector
-
-    // Show the popup when the about button is clicked
-    aboutButton.addEventListener('click', function () {
-        aboutpopupOverlay.style.display = 'block';
-        history.pushState({ popup: 'about' }, '', '#about-popup'); // Add history state
-    });
-
-    // Close the popup when the close button is clicked
-    aboutclosePopupButton.addEventListener('click', function () {
-        aboutpopupOverlay.style.display = 'none';
-        history.back(); // Go back to the previous history state
-    });
-
-    // Close the popup when clicking outside the popup content
-    aboutpopupOverlay.addEventListener('click', function (event) {
-        if (event.target === aboutpopupOverlay) { // Ensure click is outside the content
-            aboutpopupOverlay.style.display = 'none';
-            history.back();
-        }
-    });
-
-    // Handle the Back button (popstate event)
-    window.addEventListener('popstate', function (event) {
-        // Close the corresponding popup based on the state
-        if (event.state && event.state.popup === 'help') {
-            helppopupOverlay.style.display = 'none';
-        } else if (event.state && event.state.popup === 'about') {
-            aboutpopupOverlay.style.display = 'none';
-        } else {
-            // Ensure all popups are closed
-            helppopupOverlay.style.display = 'none';
-            aboutpopupOverlay.style.display = 'none';
-        }
-    });
-</script>
-
+		<script>
+			// Get references to the button and popup elements for the Help popup
+			const helpButton = document.getElementById('helpButton');
+			const helppopupOverlay = document.getElementById('helppopupOverlay');
+			const closePopupButton = document.getElementById('helpclosePopup');
+			const helppopupContent = helppopupOverlay.querySelector('.popup-content'); // Add content selector
+			
+			// Show the popup when the help button is clicked
+			helpButton.addEventListener('click', function () {
+				helppopupOverlay.style.display = 'block';
+				history.pushState({ popup: 'help' }, '', '#help-popup'); // Add history state
+			});
+			
+			// Close the popup when the close button is clicked
+			closePopupButton.addEventListener('click', function () {
+				helppopupOverlay.style.display = 'none';
+				history.back(); // Go back to the previous history state
+			});
+			
+			// Close the popup when the Esc key is pressed
+			document.addEventListener('keydown', function (event) {
+				if (event.key === 'Escape') { // Check if the Esc key was pressed
+					helppopupOverlay.style.display = 'none';
+					history.back(); // Go back to the previous history state
+				}
+			});
+			
+			// Close the popup when clicking outside the popup content
+			helppopupOverlay.addEventListener('click', function (event) {
+				if (event.target === helppopupOverlay) { // Ensure click is outside the content
+					helppopupOverlay.style.display = 'none';
+					history.back();
+				}
+			});
+			
+			// Get references to the button and popup elements for the About popup
+			const aboutButton = document.getElementById('aboutButton');
+			const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
+			const aboutclosePopupButton = document.getElementById('aboutclosePopup');
+			const aboutpopupContent = aboutpopupOverlay.querySelector('.popup-content'); // Add content selector
+			
+			// Show the popup when the about button is clicked
+			aboutButton.addEventListener('click', function () {
+				aboutpopupOverlay.style.display = 'block';
+				history.pushState({ popup: 'about' }, '', '#about-popup'); // Add history state
+			});
+			
+			// Close the popup when the close button is clicked
+			aboutclosePopupButton.addEventListener('click', function () {
+				aboutpopupOverlay.style.display = 'none';
+				history.back(); // Go back to the previous history state
+			});
+			
+			// Close the popup when clicking outside the popup content
+			aboutpopupOverlay.addEventListener('click', function (event) {
+				if (event.target === aboutpopupOverlay) { // Ensure click is outside the content
+					aboutpopupOverlay.style.display = 'none';
+					history.back();
+				}
+			});
+			
+			// Handle the Back button (popstate event)
+			window.addEventListener('popstate', function (event) {
+				// Close the corresponding popup based on the state
+				if (event.state && event.state.popup === 'help') {
+					helppopupOverlay.style.display = 'none';
+					} else if (event.state && event.state.popup === 'about') {
+					aboutpopupOverlay.style.display = 'none';
+					} else {
+					// Ensure all popups are closed
+					helppopupOverlay.style.display = 'none';
+					aboutpopupOverlay.style.display = 'none';
+				}
+			});
+		</script>
+		
 	</body>
 </html>				
