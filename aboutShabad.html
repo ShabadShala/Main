@@ -158,18 +158,7 @@
 </div>
 
             
-            <script>
-    // Function to detect Telegram in-app browser
-    function detectTelegramBrowser() {
-      const userAgent = navigator.userAgent.toLowerCase();
-      return userAgent.includes("telegram");
-    }
-
-    // If Telegram browser is detected, adjust font size
-    if (detectTelegramBrowser()) {
-      document.body.style.fontSize = "clamp(18px, 3vw, 26px)"; /* Larger font size for Telegram */
-    }
-                
+            <script>                
                 function toggleContent() {
                     var content = document.getElementById("expandedContent");
                     var symbol = document.getElementById("expandCollapseSymbol");
