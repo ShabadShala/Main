@@ -62,7 +62,7 @@
             }
             
             h1 {
-            font-size: 24px;
+            font-size: clamp(16px, 2vw, 24px);
             color: #4CAF50;
             margin: 10px 20px 5px 20px;
             text-align: center;
@@ -70,11 +70,11 @@
             }
             
             h2 {
-            font-size: 20px;
+            font-size: clamp(18px, 2vw, 26px);
             }            
             
             p {
-            font-size: 17px;
+            font-size: clamp(16px, 2vw, 24px);
             color: #555;
             text-align: justify;
             padding: 0 5px;
@@ -104,6 +104,19 @@
             100% { opacity: 1; }
             }
             
+            #expandedContent {
+    display: none;
+    margin-left: 15px;
+}
+
+#expandedContent ul {
+    padding-left: 10px;
+    margin: 0;
+
+    font-size: clamp(16px, 2vw, 24px);
+    line-height: 1.6; /* Optional: Adds better readability */
+}
+
         </style>
     </head>
     <body>
@@ -136,15 +149,16 @@
             
             <h2 onclick="toggleContent()" style="cursor: pointer; color: #4CAF50; text-align: center; margin: 0;">ਯੋਗਦਾਨ <span id="expandCollapseSymbol">+</span></h2>
             
-            <div id="expandedContent" style="display: none; margin-left: 15px;">
-                <ul style="padding-left: 10px; margin: 0;">
-                    <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਉੱਤੇ ਪੰਜਾਬ, ਪੰਜਾਬੀ, ਪੰਜਾਬੀਅਤ ਨੂੰ ਸਮਰਪਿਤ ਚੈਨਲ/ਪੇਜ਼</li>
-                    <li>ਟੈਲੀਗ੍ਰਾਮ ਐਪ ਲਈ 250+ ਸਟਿੱਕਰ ਪੈਕਾਂ ਵਿੱਚ 15000 ਤੋਂ ਉੱਪਰ ਸਟਿੱਕਰ</li>
-                    <li>ਟੈਲੀਗ੍ਰਾਮ ਐਂਡਰਾਇਡ ਐਪ ਦੇ 7500+ ਸਟਰਿੰਗਾਂ ਦਾ ਸ਼ੁੱਧ ਪੰਜਾਬੀ ਅਨੁਵਾਦ</li>
-                    <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਸ਼ਬਦਾਵਲੀ (ਅੰਗਰੇਜ਼ੀ ਤੋਂ ਪੰਜਾਬੀ) PDF</li>
-                    <li>ਪੰਜਾਬ ਦੇ ਪਿੰਡਾਂ-ਸ਼ਹਿਰਾਂ ਦੇ ਨਾਵਾਂ ਦਾ ਕੋਸ਼ PDF</li>
-                </ul>
-            </div>
+<div id="expandedContent">
+    <ul>
+        <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਉੱਤੇ ਪੰਜਾਬ, ਪੰਜਾਬੀ, ਪੰਜਾਬੀਅਤ ਨੂੰ ਸਮਰਪਿਤ ਚੈਨਲ/ਪੇਜ਼</li>
+        <li>ਟੈਲੀਗ੍ਰਾਮ ਐਪ ਲਈ 250+ ਸਟਿੱਕਰ ਪੈਕਾਂ ਵਿੱਚ 15000 ਤੋਂ ਉੱਪਰ ਸਟਿੱਕਰ</li>
+        <li>ਟੈਲੀਗ੍ਰਾਮ ਐਂਡਰਾਇਡ ਐਪ ਦੇ 7500+ ਸਟਰਿੰਗਾਂ ਦਾ ਸ਼ੁੱਧ ਪੰਜਾਬੀ ਅਨੁਵਾਦ</li>
+        <li>ਸ਼ੋਸ਼ਲ-ਮੀਡੀਆ ਸ਼ਬਦਾਵਲੀ (ਅੰਗਰੇਜ਼ੀ ਤੋਂ ਪੰਜਾਬੀ) PDF</li>
+        <li>ਪੰਜਾਬ ਦੇ ਪਿੰਡਾਂ-ਸ਼ਹਿਰਾਂ ਦੇ ਨਾਵਾਂ ਦਾ ਕੋਸ਼ PDF</li>
+    </ul>
+</div>
+
             
             <script>
                 function toggleContent() {
