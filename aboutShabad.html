@@ -159,18 +159,19 @@
 
             
             <script>                
-                function toggleContent() {
-                    var content = document.getElementById("expandedContent");
-                    var symbol = document.getElementById("expandCollapseSymbol");
-                    
-                    if (content.style.display === "none") {
-                        content.style.display = "block";
-                        symbol.textContent = "−";  // Change to collapse symbol
-                        } else {
-                        content.style.display = "none";
-                        symbol.textContent = "+";  // Change to expand symbol
-                    }
-                }
+function toggleContent() {
+    var content = document.getElementById("expandedContent");
+    var symbol = document.getElementById("expandCollapseSymbol");
+
+    // Use computed style to check the actual display property
+    if (getComputedStyle(content).display === "none") {
+        content.style.display = "block"; // Show content
+        symbol.textContent = "−";       // Change to collapse symbol
+    } else {
+        content.style.display = "none"; // Hide content
+        symbol.textContent = "+";       // Change to expand symbol
+    }
+}
             </script>
             
         </div> <!-- End of container -->
