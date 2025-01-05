@@ -241,7 +241,7 @@
 			margin-bottom: 5px; /* Add space between list items */
 			line-height: 1.4;
 			}
-						
+				
 			#addDialog {
 			display: none;
 			position: fixed;
@@ -481,7 +481,7 @@
 				const outputDiv = document.getElementById('output');
 				const messageDiv = document.getElementById('message');
 				const loadingSpinner = document.getElementById('loading'); // Assuming the spinner has this ID
-
+				
     // Check for forbidden endings
 	const exceptions = ['ਕੌਰ', 'ਬਲਕੌਰ', 'ਚਮਕੌਰ'];
     if (name.endsWith('ਸਿੰਘ')) {
@@ -493,8 +493,8 @@
         messageDiv.textContent = '⚠️ ਕੌਰ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
         messageDiv.style.color = 'red';
         return; // Stop execution if invalid input
-    }	
-				
+    }								
+			
 				// Replace characters for better data storage
 				const replacements = { 
 					'ਸ਼': 'ਸ਼',
@@ -502,20 +502,24 @@
 					'ਗ਼': 'ਗ਼', 
 					'ਜ਼': 'ਜ਼', 
 					'ਫ਼': 'ਫ਼', 
-					'ਲ਼': 'ਲ਼', 		
+					'ਲ਼': 'ਲ਼', 	
+					'ਫਤਹਿ': 'ਫ਼ਤਹਿ', 
+					'ਫਤਿਹ': 'ਫ਼ਤਹਿ', 					
+					'ਫ਼ਤਿਹ': 'ਫ਼ਤਹਿ', 					
+					'ਫਤਹ': 'ਫ਼ਤਹਿ', 	
 				};
 				
 				for (const [key, replacement] of Object.entries(replacements)) {
 					const regex = new RegExp(key, 'g'); // 'g' for global replacement
 					name = name.replace(regex, replacement);
 				}
-
+				
 // Check for input length after replacements
 if (name.length === 1 || name.length > 15) {
     messageDiv.textContent = '⚠️ ਨਾਮ ਠੀਕ ਨਹੀਂ';
     messageDiv.style.color = 'red';
-    return; // Stop execution if the name is only one character
-}	
+    return;
+}				
 				
 				// Check if the input is empty, disable accordingly
 				if (!name) {
@@ -769,9 +773,9 @@ if (name.length === 1 || name.length > 15) {
 			<div class="popup-container">
 				<strong class="popup-heading">ਨਾਮ ਲਿਖਣ ਬਾਰੇ</strong>
 				<ul class="instructions-list2">
-					<li>ਗੁਰਮੁਖੀ ਅੱਖਰ ਤੇ ਲਗਾਂ-ਮਾਤਰਾਵਾਂ ਤੋਂ ਬਿਨਾਂ ਹੋਰ ਭਾਸ਼ਾਵਾਂ, ਚਿੰਨ੍ਹ ਜਾਂ ਖਾਲੀ ਥਾਂ ਟਾਈਪ ਨਹੀਂ ਹੋਵੇਗੀ</li>
+					<li>ਗੁਰਮੁਖੀ ਅੱਖਰ ਤੇ ਲਗਾਂ-ਮਾਤਰਾਵਾਂ ਤੋਂ ਬਿਨਾਂ ਹੋਰ ਕੁੱਝ ਟਾਈਪ ਨਹੀਂ ਹੋਵੇਗਾ</li>
 					<li>ਨਾਮ ਦਾ ਮੁਢਲਾ ਹਿੱਸਾ (ਸਿੰਘ/ਕੌਰ ਤੋਂ ਪਹਿਲਾਂ ਵਾਲਾ) ਲਿਖੋ, ਜੇ ਵਿੱਚ ਖਾਲੀ ਥਾਂ ਹੈ ਤਾਂ ਸ਼ਬਦ ਇਕੱਠੇ ਕਰ ਦੇਵੋ ਜਿਵੇਂ ਕਿ 'ਟਹਿਲ ਦੀਪ' ਨੂੰ 'ਟਹਿਲਦੀਪ'</li>
-					<li>ਸਹੀ ਪੰਜਾਬੀ ਫੌਂਟ ਤੇ ਟਾਈਪਿੰਗ ਦੀ ਜਾਣਕਾਰੀ ਲਈ ਸ਼ਬਦਸ਼ਾਲਾ ਦਾ ਉਪ-ਚੈਨਲ "<strong>Punjabi Typing/Fonts</strong>" ਦੇਖੋ</li>
+					<li>ਕੰਪਿਊਟਰ, ਮੋਬਾਈਲ ਵਗੈਰਾ ਉੱਤੇ ਸਹੀ ਪੰਜਾਬੀ ਟਾਈਪਿੰਗ ਤੇ ਫੌਂਟਾਂ ਦੀ ਜਾਣਕਾਰੀ ਲਈ ਸ਼ਬਦਸ਼ਾਲਾ ਦਾ ਉਪ-ਚੈਨਲ "<strong>Punjabi Typing/Fonts</strong>" ਦੇਖੋ</li>
 				</ul>
 				<button id="helpclosePopup"></button>
 			</div>
