@@ -241,11 +241,7 @@
 			margin-bottom: 5px; /* Add space between list items */
 			line-height: 1.4;
 			}
-			
-			
-			
-			
-			
+						
 			#addDialog {
 			display: none;
 			position: fixed;
@@ -485,6 +481,18 @@
 				const outputDiv = document.getElementById('output');
 				const messageDiv = document.getElementById('message');
 				const loadingSpinner = document.getElementById('loading'); // Assuming the spinner has this ID
+
+    // Check for forbidden endings
+    if (name.endsWith('ਸਿੰਘ')) {
+        messageDiv.textContent = '⚠️ ਸਿੰਘ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
+        messageDiv.style.color = 'red';
+        return; // Stop execution if invalid input
+    }
+    if (name.endsWith('ਕੌਰ')) {
+        messageDiv.textContent = '⚠️ ਕੌਰ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
+        messageDiv.style.color = 'red';
+        return; // Stop execution if invalid input
+    }	
 				
 				// Replace characters for better data storage
 				const replacements = { 
