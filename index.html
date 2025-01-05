@@ -483,12 +483,13 @@
 				const loadingSpinner = document.getElementById('loading'); // Assuming the spinner has this ID
 
     // Check for forbidden endings
+	const exceptions = ['ਕੌਰ', 'ਬਲਕੌਰ', 'ਚਮਕੌਰ'];
     if (name.endsWith('ਸਿੰਘ')) {
         messageDiv.textContent = '⚠️ ਸਿੰਘ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
         messageDiv.style.color = 'red';
         return; // Stop execution if invalid input
     }
-    if (name.endsWith('ਕੌਰ')) {
+	if (name.endsWith('ਕੌਰ') && !exceptions.includes(name)) {
         messageDiv.textContent = '⚠️ ਕੌਰ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
         messageDiv.style.color = 'red';
         return; // Stop execution if invalid input
