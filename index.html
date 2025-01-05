@@ -511,11 +511,11 @@
 				}
 
 // Check for input length after replacements
-if (name.length === 1) {
+if (name.length === 1 || name.length > 15) {
     messageDiv.textContent = '⚠️ ਸਹੀ ਨਾਮ ਨਹੀਂ';
     messageDiv.style.color = 'red';
     return; // Stop execution if the name is only one character
-}
+}	
 				
 				// Check if the input is empty, disable accordingly
 				if (!name) {
