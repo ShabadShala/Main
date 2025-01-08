@@ -388,16 +388,30 @@
 		</style>
 		
 		<script>
-			document.addEventListener("DOMContentLoaded", function() {
-				const input = document.querySelector('input[type="text"]');
-				// Add event listener to validate Gurmukhi characters
-				input.addEventListener('input', function() {
-					const gurmukhiRegex = /^[\u0A00-\u0A7F]*$/; // Gurmukhi Unicode range
-					if (!gurmukhiRegex.test(input.value)) {
-						input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove non-Gurmukhi characters
-					}
-				});
-			});     
+document.addEventListener("DOMContentLoaded", function() {
+    const input = document.querySelector('input[type="text"]');
+    const clearBtn = input.nextElementSibling; // Ensure this aligns with your HTML structure
+
+    // Show the clear button if the input has cached text
+    if (input.value.trim() !== '') {
+        clearBtn.style.display = 'inline-block';
+    }
+
+    // Add a focus event to ensure the clear button updates on interaction
+    input.addEventListener('focus', function() {
+        if (input.value.trim() !== '') {
+            clearBtn.style.display = 'inline-block';
+        }
+    });
+
+    // Validate Gurmukhi characters on input
+    input.addEventListener('input', function() {
+        const gurmukhiRegex = /^[\u0A00-\u0A7F]*$/; // Gurmukhi Unicode range
+        if (!gurmukhiRegex.test(input.value)) {
+            input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove invalid characters
+        }
+    });
+});     
 			
 			// Function to activate animation
 			function activateAnimation() {
