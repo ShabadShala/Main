@@ -390,28 +390,35 @@
 		<script>
 document.addEventListener("DOMContentLoaded", function() {
     const input = document.querySelector('input[type="text"]');
-    const clearBtn = input.nextElementSibling; // Ensure this aligns with your HTML structure
+    const clearBtn = input.nextElementSibling; // Assuming clear button is the next sibling
 
-    // Show the clear button if the input has cached text
-    if (input.value.trim() !== '') {
-        clearBtn.style.display = 'inline-block';
+    function updateClearButtonVisibility() {
+        if (input.value.trim() !== '') {
+            clearBtn.style.display = 'inline-block'; // Show the clear button
+        } else {
+            clearBtn.style.display = 'none'; // Hide the clear button
+        }
     }
 
-    // Add a focus event to ensure the clear button updates on interaction
-    input.addEventListener('focus', function() {
-        if (input.value.trim() !== '') {
-            clearBtn.style.display = 'inline-block';
-        }
+    // Initial check when the DOM is fully loaded
+    updateClearButtonVisibility();
+
+    // Handle pageshow for cases where the browser restores the page from the cache
+    window.addEventListener('pageshow', function() {
+        updateClearButtonVisibility();
     });
 
-    // Validate Gurmukhi characters on input
+    // Add event listeners for input focus and changes
+    input.addEventListener('focus', updateClearButtonVisibility);
     input.addEventListener('input', function() {
         const gurmukhiRegex = /^[\u0A00-\u0A7F]*$/; // Gurmukhi Unicode range
         if (!gurmukhiRegex.test(input.value)) {
-            input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove invalid characters
+            input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove non-Gurmukhi characters
         }
+        updateClearButtonVisibility(); // Update clear button visibility on input
     });
-});     
+});
+
 			
 			// Function to activate animation
 			function activateAnimation() {
