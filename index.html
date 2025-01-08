@@ -447,18 +447,24 @@
 			});
 			
 			// Disable input field while search is in progress
-			function disableInput(disableAll = true) {
-				const input = document.querySelector('input[type="text"]');
-				const clearBtn = input.nextElementSibling; // Cross button
-				const searchBtn = document.querySelector('.search-btn');
-				
-				if (disableAll) {
-					input.disabled = true;  // Disable the text box
-					clearBtn.style.display = 'none';  // Hide the clear button
-				}				
-				searchBtn.disabled = true;  // Disable the search button
-				searchBtn.classList.add('no-hover');  // Disable the hover effect
-			}
+function disableInput(disableAll = true) {
+    const input = document.getElementById('myInput'); // Get input using id
+    const clearBtn = input.nextElementSibling; // Get clear button
+    const searchBtn = document.querySelector('.search-btn'); // Get search button
+    
+    if (disableAll) {
+      input.disabled = true;  // Disable the text box
+      clearBtn.style.display = 'none';  // Hide the clear button
+    } else {
+      input.disabled = false; // Enable the text box
+      toggleClearButton(input)
+    }        
+    searchBtn.disabled = disableAll;  // Disable/Enable the search button
+    searchBtn.classList.toggle('no-hover', disableAll);  // Toggle the hover effect based on disableAll
+  }
+
+    
+
 			
 			// Enable input field after search completes
 			function enableInput(enableAll = true) {
@@ -673,14 +679,17 @@ if (name.length === 1 || name.length > 15) {
 				}
 			}
 			
-			function toggleClearButton(input) {
-				const clearBtn = input.nextElementSibling;
-				clearBtn.style.display = input.value ? 'block' : 'none';
-				if (input.value) {
-					document.getElementById('output').textContent = ''; // Clear the output
-					document.getElementById('message').textContent = ''; // Clear the message
-				}
-			}
+     function toggleClearButton(input) {
+        const clearBtn = input.nextElementSibling;
+        clearBtn.style.display = input.value ? 'block' : 'none';
+        if (input.value) {
+          document.getElementById('output').textContent = '';
+          document.getElementById('message').textContent = '';
+        }
+      }
+    
+
+			
 			
 			function clearInput(input) {
 				input.value = ''; // Clear the input
@@ -788,14 +797,14 @@ if (name.length === 1 || name.length > 15) {
 		</div>
 		
 		<div class="search-container";>
-		<div class="input-wrapper">
-		<input type="text" 
-		onkeypress="allowGurmukhi(event)" 
-		oninput="toggleClearButton(this); deactivateAnimation();" 
-		onkeydown="if(event.key === 'Enter') searchName()" 
-		placeholder="ਮੁਢਲਾ ਨਾਮ">
-		<button class="clear-btn" onclick="clearInput(this.previousElementSibling)">&times;</button>
-		</div>
+<div class="input-wrapper">
+    <input type="text" 
+           id="myInput"
+           oninput="toggleClearButton(this); allowGurmukhi(event); deactivateAnimation();" 
+           onkeydown="if(event.key === 'Enter') searchName()" 
+           placeholder="ਮੁਢਲਾ ਨਾਮ">
+    <button class="clear-btn" onclick="clearInput(this.previousElementSibling)">&times;</button>
+</div>
 		<button class="search-btn" onclick="searchName() ; deactivateAnimation()">Check</button>
 		</div>
 		
