@@ -505,16 +505,16 @@ document.addEventListener("DOMContentLoaded", function() {
 				
     // Check for forbidden endings
 	const exceptions = ['ਕੌਰ', 'ਬਲਕੌਰ', 'ਚਮਕੌਰ'];
-    if (name.endsWith('ਸਿੰਘ')) {
+    if (name.includes('ਸਿੰਘ')) {
         messageDiv.textContent = '⚠️ ਸਿੰਘ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
         messageDiv.style.color = 'red';
         return; // Stop execution if invalid input
     }
-	if (name.endsWith('ਕੌਰ') && !exceptions.includes(name)) {
-        messageDiv.textContent = '⚠️ ਕੌਰ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
-        messageDiv.style.color = 'red';
-        return; // Stop execution if invalid input
-    }								
+if ((name.includes('ਕੌਰ') && !name.startsWith('ਕੌਰ')) && !exceptions.includes(name)) {
+    messageDiv.textContent = '⚠️ ਕੌਰ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
+    messageDiv.style.color = 'red';
+    return; // Stop execution if invalid input
+}								
 			
 				// Replace characters for better data storage
 				const replacements = { 
