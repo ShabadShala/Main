@@ -241,7 +241,7 @@
 			margin-bottom: 5px; /* Add space between list items */
 			line-height: 1.4;
 			}
-				
+			
 			#addDialog {
 			display: none;
 			position: fixed;
@@ -388,37 +388,54 @@
 		</style>
 		
 		<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const input = document.querySelector('input[type="text"]');
-    const clearBtn = input.nextElementSibling; // Assuming clear button is the next sibling
-
-    function updateClearButtonVisibility() {
-        if (input.value.trim() !== '') {
-            clearBtn.style.display = 'inline-block'; // Show the clear button
-        } else {
-            clearBtn.style.display = 'none'; // Hide the clear button
-        }
-    }
-
-    // Initial check when the DOM is fully loaded
-    updateClearButtonVisibility();
-
-    // Handle pageshow for cases where the browser restores the page from the cache
-    window.addEventListener('pageshow', function() {
-        updateClearButtonVisibility();
-    });
-
-    // Add event listeners for input focus and changes
-    input.addEventListener('focus', updateClearButtonVisibility);
-    input.addEventListener('input', function() {
-        const gurmukhiRegex = /^[\u0A00-\u0A7F]*$/; // Gurmukhi Unicode range
-        if (!gurmukhiRegex.test(input.value)) {
-            input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove non-Gurmukhi characters
-        }
-        updateClearButtonVisibility(); // Update clear button visibility on input
-    });
-});
-
+			document.addEventListener("DOMContentLoaded", function() {
+				const input = document.querySelector('input[type="text"]');
+				const clearBtn = input.nextElementSibling; // Assuming clear button is the next sibling
+				const searchBtn = document.querySelector('.search-btn');
+				
+				function updateClearButtonVisibility() {
+					if (input.value.trim() !== '') {
+						clearBtn.style.display = 'inline-block'; // Show the clear button
+						} else {
+						clearBtn.style.display = 'none'; // Hide the clear button
+					}
+				}
+				
+				// Disable the search button on page load if the input is empty
+				if (input.value.trim() === '') {
+					searchBtn.disabled = true;
+					searchBtn.classList.add('no-hover');  // Add no-hover if button is disabled
+				}
+				
+				// Add event listeners for input focus, changes, and pageshow
+				input.addEventListener('focus', updateClearButtonVisibility);
+				input.addEventListener('input', function() {
+					const gurmukhiRegex = /^[\u0A00-\u0A7F]*$/; // Gurmukhi Unicode range
+					if (!gurmukhiRegex.test(input.value)) {
+						input.value = input.value.replace(/[^\u0A00-\u0A7F]/g, ''); // Remove non-Gurmukhi characters
+					}
+					
+					// Update clear button visibility on input
+					updateClearButtonVisibility();
+					
+					// Handle search button enabling/disabling
+					if (input.value.trim() === '') {
+						searchBtn.disabled = true;
+						searchBtn.classList.add('no-hover');  // Add no-hover if button is disabled
+						} else {
+						searchBtn.disabled = false;
+						searchBtn.classList.remove('no-hover');  // Remove no-hover if button is enabled
+					}
+				});
+				
+				// Initial check when the DOM is fully loaded
+				updateClearButtonVisibility();
+				
+				// Handle pageshow for cases where the browser restores the page from the cache
+				window.addEventListener('pageshow', function() {
+					updateClearButtonVisibility();
+				});
+			});
 			
 			// Function to activate animation
 			function activateAnimation() {
@@ -443,29 +460,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					} else {
 					deactivateAnimation();
 				}
-			});
-			
-			document.addEventListener("DOMContentLoaded", function() {
-				const input = document.querySelector('input[type="text"]');
-				const searchBtn = document.querySelector('.search-btn');
-				
-				// Disable the search button on page load if the input is empty
-				if (input.value.trim() === '') {
-					searchBtn.disabled = true;
-					searchBtn.classList.add('no-hover');  // Add no-hover if button is disabled
-				}
-				
-				// Add an event listener to monitor changes in the input field
-				input.addEventListener('input', function() {
-					if (input.value.trim() === '') {
-						searchBtn.disabled = true;
-						searchBtn.classList.add('no-hover');  // Add no-hover if button is disabled
-						} else {
-						searchBtn.disabled = false;
-						searchBtn.classList.remove('no-hover');  // Remove no-hover if button is enabled
-					}
-				});
-			});
+			});	
 			
 			// Disable input field while search is in progress
 			function disableInput(disableAll = true) {
@@ -503,19 +498,19 @@ document.addEventListener("DOMContentLoaded", function() {
 				const messageDiv = document.getElementById('message');
 				const loadingSpinner = document.getElementById('loading'); // Assuming the spinner has this ID
 				
-    // Check for forbidden endings
-	const exceptions = ['ਕੌਰ', 'ਬਲਕੌਰ', 'ਚਮਕੌਰ'];
-    if (name.includes('ਸਿੰਘ')) {
-        messageDiv.textContent = '⚠️ ਸਿੰਘ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
-        messageDiv.style.color = 'red';
-        return; // Stop execution if invalid input
-    }
-if ((name.includes('ਕੌਰ') && !name.startsWith('ਕੌਰ')) && !exceptions.includes(name)) {
-    messageDiv.textContent = '⚠️ ਕੌਰ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
-    messageDiv.style.color = 'red';
-    return; // Stop execution if invalid input
-}								
-			
+				// Check for forbidden text
+				const exceptions = ['ਕੌਰ', 'ਬਲਕੌਰ', 'ਚਮਕੌਰ'];
+				if (name.includes('ਸਿੰਘ')) {
+					messageDiv.textContent = '⚠️ ਸਿੰਘ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
+					messageDiv.style.color = 'red';
+					return; // Stop execution if invalid input
+				}
+				if ((name.includes('ਕੌਰ') && !name.startsWith('ਕੌਰ')) && !exceptions.includes(name)) {
+					messageDiv.textContent = '⚠️ ਕੌਰ ਤੋਂ ਬਿਨਾਂ ਲਿਖੋ';
+					messageDiv.style.color = 'red';
+					return; // Stop execution if invalid input
+				}
+				
 				// Replace characters for better data storage
 				const replacements = { 
 					'ਸ਼': 'ਸ਼',
@@ -535,12 +530,12 @@ if ((name.includes('ਕੌਰ') && !name.startsWith('ਕੌਰ')) && !exceptions
 					name = name.replace(regex, replacement);
 				}
 				
-// Check for input length after replacements
-if (name.length === 1 || name.length > 15) {
-    messageDiv.textContent = '⚠️ ਨਾਮ ਠੀਕ ਨਹੀਂ';
-    messageDiv.style.color = 'red';
-    return;
-}				
+				// Check for input length after replacements
+				if (name.length === 1 || name.length > 15) {
+					messageDiv.textContent = '⚠️ ਨਾਮ ਠੀਕ ਨਹੀਂ';
+					messageDiv.style.color = 'red';
+					return;
+				}				
 				
 				// Check if the input is empty, disable accordingly
 				if (!name) {
@@ -584,7 +579,6 @@ if (name.length === 1 || name.length > 15) {
 					console.error('Error:', error);
 				}
 			}
-			
 			
 			function generateBeep() {
 				const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -762,18 +756,15 @@ if (name.length === 1 || name.length > 15) {
 				});
 			}
 			
-			
 			window.onload = function() {
 				fetchRecordCount();
-			}
+				input.focus();
+			}			
 			
-			
-		</script>
-		
-	</head>
+		</script>		
+	</head>	
 	
-	<body>
-		
+	<body>		
 		<!-- About Button -->
 		<button id="aboutButton" class="button">About</button>
 		<!-- Popup Overlay -->
@@ -809,15 +800,15 @@ if (name.length === 1 || name.length > 15) {
 		</div>
 		
 		<div class="search-container";>
-		<div class="input-wrapper">
-		<input type="text" 
-		onkeypress="allowGurmukhi(event)" 
-		oninput="toggleClearButton(this); deactivateAnimation();" 
-		onkeydown="if(event.key === 'Enter') searchName()" 
-		placeholder="ਮੁਢਲਾ ਨਾਮ">
-		<button class="clear-btn" onclick="clearInput(this.previousElementSibling)">&times;</button>
-		</div>
-		<button class="search-btn" onclick="searchName() ; deactivateAnimation()">Check</button>
+			<div class="input-wrapper">
+				<input type="text" 
+				onkeypress="allowGurmukhi(event)" 
+				oninput="toggleClearButton(this); deactivateAnimation();" 
+				onkeydown="if(event.key === 'Enter') searchName()" 
+				placeholder="ਮੁਢਲਾ ਨਾਮ">
+				<button class="clear-btn" onclick="clearInput(this.previousElementSibling)">&times;</button>
+			</div>
+			<button class="search-btn" onclick="searchName() ; deactivateAnimation()">Check</button>
 		</div>
 		
 		<div class="loading" id="loading"></div>
@@ -825,111 +816,119 @@ if (name.length === 1 || name.length > 15) {
 		<div id="output" class="output-text"></div>
 		<div id="message" class="message"></div>
 		
-	    <div id="addDialog">
-		<p>ਇਹ ਨਾਮ ਮੌਜੂਦ ਨਹੀਂ, ਕੀ ਤੁਸੀਂ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</p>
-		<button class="add-btn">Yes</button>
-		<button class="cancel-btn">No</button>
+		<div id="addDialog">
+			<p>ਇਹ ਨਾਮ ਮੌਜੂਦ ਨਹੀਂ, ਕੀ ਤੁਸੀਂ ਸ਼ਾਮਲ ਕਰਨਾ ਚਾਹੁੰਦੇ ਹੋ?</p>
+			<button class="add-btn">Yes</button>
+			<button class="cancel-btn">No</button>
 		</div>
 		<div id="overlay"></div>
 		
 		<div id="baby-animation" class="animation hidden">
-		👶🍼👼
+			👶🍼👼
 		</div>
 		
 		<div class="count-container">
-		<br><h2>ਕੁੱਲ ਨਾਂ - </h2>
-		<div id="result" class="blink">wait</div>
+			<br><h2>ਕੁੱਲ ਨਾਂ - </h2>
+			<div id="result" class="blink">wait</div>
 		</div>
 		
 		<div class="linecontainer">
-		<div class="line"></div>
+			<div class="line"></div>
 		</div>
 		<a href="aboutShabad.html">ਸ਼ਬਦਸ਼ਾਲਾ</a>
 		
 		<div style="display: flex; align-items: center; justify-content: center;">
-		<h3 style="margin-right: 10px;">Visitor </h3>
-		<!-- hitwebcounter Code START -->
-		<a href="https://www.hitwebcounter.com" target="_blank">
-		<img src="https://hitwebcounter.com/counter/counter.php?page=18035707&style=0006&nbdigits=5&type=page&initCount=0" title="Counter Widget" alt="Visit counter For Websites" border="" />
-		</a>
-		<!-- hitwebcounter Code END -->
+			<h3 style="margin-right: 10px;">Visitor </h3>
+			<!-- hitwebcounter Code START -->
+			<a href="https://www.hitwebcounter.com" target="_blank">
+				<img src="https://hitwebcounter.com/counter/counter.php?page=18035707&style=0006&nbdigits=5&type=page&initCount=0" title="Counter Widget" alt="Visit counter For Websites" border="" />
+			</a>
+			<!-- hitwebcounter Code END -->
 		</div>
 		
 		<script>
-		// Get references to the button and popup elements for the Help popup
-		const helpButton = document.getElementById('helpButton');
-		const helppopupOverlay = document.getElementById('helppopupOverlay');
-		const closePopupButton = document.getElementById('helpclosePopup');
-		const helppopupContent = helppopupOverlay.querySelector('.popup-content'); // Add content selector
-		
-		// Show the popup when the help button is clicked
-		helpButton.addEventListener('click', function () {
-		helppopupOverlay.style.display = 'block';
-		history.pushState({ popup: 'help' }, '', '#help-popup'); // Add history state
-		});
-		
-		// Close the popup when the close button is clicked
-		closePopupButton.addEventListener('click', function () {
-		helppopupOverlay.style.display = 'none';
-		history.back(); // Go back to the previous history state
-		});
-		
-		// Close the popup when the Esc key is pressed
-		document.addEventListener('keydown', function (event) {
-		if (event.key === 'Escape') { // Check if the Esc key was pressed
-		helppopupOverlay.style.display = 'none';
-		history.back(); // Go back to the previous history state
-		}
-		});
-		
-		// Close the popup when clicking outside the popup content
-		helppopupOverlay.addEventListener('click', function (event) {
-		if (event.target === helppopupOverlay) { // Ensure click is outside the content
-		helppopupOverlay.style.display = 'none';
-		history.back();
-		}
-		});
-		
-		// Get references to the button and popup elements for the About popup
-		const aboutButton = document.getElementById('aboutButton');
-		const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
-		const aboutclosePopupButton = document.getElementById('aboutclosePopup');
-		const aboutpopupContent = aboutpopupOverlay.querySelector('.popup-content'); // Add content selector
-		
-		// Show the popup when the about button is clicked
-		aboutButton.addEventListener('click', function () {
-		aboutpopupOverlay.style.display = 'block';
-		history.pushState({ popup: 'about' }, '', '#about-popup'); // Add history state
-		});
-		
-		// Close the popup when the close button is clicked
-		aboutclosePopupButton.addEventListener('click', function () {
-		aboutpopupOverlay.style.display = 'none';
-		history.back(); // Go back to the previous history state
-		});
-		
-		// Close the popup when clicking outside the popup content
-		aboutpopupOverlay.addEventListener('click', function (event) {
-		if (event.target === aboutpopupOverlay) { // Ensure click is outside the content
-		aboutpopupOverlay.style.display = 'none';
-		history.back();
-		}
-		});
-		
-		// Handle the Back button (popstate event)
-		window.addEventListener('popstate', function (event) {
-		// Close the corresponding popup based on the state
-		if (event.state && event.state.popup === 'help') {
-		helppopupOverlay.style.display = 'none';
-		} else if (event.state && event.state.popup === 'about') {
-		aboutpopupOverlay.style.display = 'none';
-		} else {
-		// Ensure all popups are closed
-		helppopupOverlay.style.display = 'none';
-		aboutpopupOverlay.style.display = 'none';
-		}
-		});
-		</script>
-		
-		</body>
-		</html>						
+			// Get references to the button and popup elements for the Help popup
+			const helpButton = document.getElementById('helpButton');
+			const helppopupOverlay = document.getElementById('helppopupOverlay');
+			const closePopupButton = document.getElementById('helpclosePopup');
+			const helppopupContent = helppopupOverlay.querySelector('.popup-content'); // Add content selector
+			const input = document.querySelector('input[type="text"]'); // Assuming your text box is here
+			
+			// Show the popup when the help button is clicked
+			helpButton.addEventListener('click', function () {
+				helppopupOverlay.style.display = 'block';
+				history.pushState({ popup: 'help' }, '', '#help-popup'); // Add history state
+			});
+			
+			// Close the popup when the close button is clicked
+			closePopupButton.addEventListener('click', function () {
+				helppopupOverlay.style.display = 'none';
+				history.back(); // Go back to the previous history state
+				input.focus(); // Return focus to the text box
+			});
+			
+			// Close the popup when the Esc key is pressed
+			document.addEventListener('keydown', function (event) {
+				if (event.key === 'Escape') { // Check if the Esc key was pressed
+					helppopupOverlay.style.display = 'none';
+					history.back(); // Go back to the previous history state
+					input.focus(); // Return focus to the text box
+				}
+			});
+			
+			// Close the popup when clicking outside the popup content
+			helppopupOverlay.addEventListener('click', function (event) {
+				if (event.target === helppopupOverlay) { // Ensure click is outside the content
+					helppopupOverlay.style.display = 'none';
+					history.back();
+					input.focus(); // Return focus to the text box
+				}
+			});
+			
+			// Get references to the button and popup elements for the About popup
+			const aboutButton = document.getElementById('aboutButton');
+			const aboutpopupOverlay = document.getElementById('aboutpopupOverlay');
+			const aboutclosePopupButton = document.getElementById('aboutclosePopup');
+			const aboutpopupContent = aboutpopupOverlay.querySelector('.popup-content'); // Add content selector
+			
+			// Show the popup when the about button is clicked
+			aboutButton.addEventListener('click', function () {
+				aboutpopupOverlay.style.display = 'block';
+				history.pushState({ popup: 'about' }, '', '#about-popup'); // Add history state
+			});
+			
+			// Close the popup when the close button is clicked
+			aboutclosePopupButton.addEventListener('click', function () {
+				aboutpopupOverlay.style.display = 'none';
+				history.back(); // Go back to the previous history state
+				input.focus(); // Return focus to the text box
+			});
+			
+			// Close the popup when clicking outside the popup content
+			aboutpopupOverlay.addEventListener('click', function (event) {
+				if (event.target === aboutpopupOverlay) { // Ensure click is outside the content
+					aboutpopupOverlay.style.display = 'none';
+					history.back();
+					input.focus(); // Return focus to the text box
+				}
+			});
+			
+			// Handle the Back button (popstate event)
+			window.addEventListener('popstate', function (event) {
+				// Close the corresponding popup based on the state
+				if (event.state && event.state.popup === 'help') {
+					helppopupOverlay.style.display = 'none';
+					input.focus(); // Return focus to the text box
+					} else if (event.state && event.state.popup === 'about') {
+					aboutpopupOverlay.style.display = 'none';
+					input.focus(); // Return focus to the text box
+					} else {
+					// Ensure all popups are closed
+					helppopupOverlay.style.display = 'none';
+					aboutpopupOverlay.style.display = 'none';
+					input.focus(); // Return focus to the text box
+				}
+			});
+		</script>		
+	</body>
+</html>						
